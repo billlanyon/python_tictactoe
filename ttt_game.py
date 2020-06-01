@@ -46,6 +46,20 @@ class Game:
             print(' |')
         print('---------')
 
+    def get_first_player(self):
+        global player
+        while True:
+            try:
+                player = input('Enter who plays first, X or O: > ')
+                player = player.upper()
+                if re.match("^[XO]$", player):
+                    break
+                print('Please enter either an X or an O')
+            except ValueError as error:
+                print(error)
+                continue
+        return player
+
     def input_move(self):
         """
         Get the next move
@@ -77,7 +91,7 @@ class Game:
         return [self.board[x][y] for x in range(3) for y in range(3)]
 
     # Single game status testing function?
-    def horizontal_status(self, player):
+    def horizontal_three_of_a_kind(self, player):
         """
         Check for three of a kind in the rows
         @param player:
@@ -87,7 +101,7 @@ class Game:
             if self.board[i][0] == self.board[i][1] == self.board[i][2] == player:
                 return True
 
-    def vertical_status(self, player):
+    def vertical_three_of_a_kind(self, player):
         """
         Check for three of a kind in columns
         @param player:
@@ -97,7 +111,7 @@ class Game:
             if self.board[0][i] == self.board[1][i] == self.board[2][i] == player:
                 return True
 
-    def diagonal_status(self, player):
+    def diagonal_three_of_a_kind(self, player):
         """
         Check for three of a kind in diagonals
         @param player:
@@ -113,7 +127,7 @@ class Game:
         @param player:
         @return: True if yes, False if not
         """
-        if self.diagonal_status(player) or self.horizontal_status(player) or self.vertical_status(player):
+        if self.diagonal_three_of_a_kind(player) or self.horizontal_three_of_a_kind(player) or self.vertical_three_of_a_kind(player):
             return True
 
     def status_check(self):
