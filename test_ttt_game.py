@@ -34,7 +34,7 @@ def test_04_horizontal_three_of_a_kind_identifies_three_of_a_kind_vertical():
     assert not g.horizontal_three_of_a_kind('X')
 
 
-def test_05_horizontal_three_of_a_kind_identifies_two_of_a_kind_diagonal():
+def test_05_horizontal_three_of_a_kind_identifies_two_of_a_kind_back_diagonal():
     g = Game()
     g.board = [['X', ' ', ' '],
                [' ', 'X', ' '],
@@ -42,9 +42,9 @@ def test_05_horizontal_three_of_a_kind_identifies_two_of_a_kind_diagonal():
     assert not g.horizontal_three_of_a_kind('X')
 
 
-def test_06_horizontal_three_of_a_kind_identifies_two_of_a_kind():
+def test_06_horizontal_three_of_a_kind_identifies_two_of_a_kind_fwd_diagonal():
     g = Game()
-    g.board = [['X', ' ', ' '],
-               ['X', ' ', ' '],
+    g.board = [[' ', ' ', 'X'],
+               [' ', 'X', ' '],
                ['X', ' ', ' ']]
     assert not g.horizontal_three_of_a_kind('X')
