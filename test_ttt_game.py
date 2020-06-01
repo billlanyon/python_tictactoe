@@ -1,7 +1,7 @@
 from ttt_game import Game
 
 
-def test_01_horizontal_three_of_a_kind_identifies_three_of_a_kind_X():
+def test_01_horizontal_three_of_a_kind_identifies_three_of_a_kind():
     g = Game()
     g.board = [['X', 'X', 'X'],
                [' ', ' ', ' '],
@@ -9,7 +9,7 @@ def test_01_horizontal_three_of_a_kind_identifies_three_of_a_kind_X():
     assert g.horizontal_three_of_a_kind('X')
 
 
-def test_02_horizontal_three_of_a_kind_identifies_three_of_a_kind_XandO():
+def test_02_horizontal_three_of_a_kind_identifies_three_of_a_kind():
     g = Game()
     g.board = [['X', 'X', 'X'],
                ['O', 'O', 'O'],
@@ -17,7 +17,8 @@ def test_02_horizontal_three_of_a_kind_identifies_three_of_a_kind_XandO():
     assert g.horizontal_three_of_a_kind('O')
     assert g.horizontal_three_of_a_kind('X')
 
-def test_03_horizontal_three_of_a_kind_identifies_two_of_a_kind():
+
+def test_03_horizontal_three_of_a_kind_identifies_two_of_a_kind_is_not_three_of_a_kind():
     g = Game()
     g.board = [['X', 'X', ' '],
                [' ', ' ', ' '],
