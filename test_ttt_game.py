@@ -72,3 +72,11 @@ def test_10_is_any_diagonal_complete_identifies_complete_diagonal():
                [' ', 'X', ' '],
                [' ', ' ', 'X']]
     assert g.is_any_diagonal_complete('X')
+
+
+def test_11_is_any_row_complete_identifies_complete_row_for_wrong_player():
+    g = Game()
+    g.board = [['X', 'X', 'X'],
+               [' ', ' ', ' '],
+               [' ', ' ', ' ']]
+    assert not g.is_any_row_complete('O')
