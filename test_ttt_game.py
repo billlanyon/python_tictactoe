@@ -56,3 +56,19 @@ def test_08_is_any_row_complete_identifies_empty_grid():
                [' ', ' ', ' '],
                [' ', ' ', ' ']]
     assert not g.is_any_row_complete('X')
+
+
+def test_09_is_any_column_complete_identifies_complete_column():
+    g = Game()
+    g.board = [['X', ' ', ' '],
+               ['X', ' ', ' '],
+               ['X', ' ', ' ']]
+    assert g.is_any_column_complete('X')
+
+
+def test_10_is_any_diagonal_complete_identifies_complete_diagonal():
+    g = Game()
+    g.board = [['X', ' ', ' '],
+               [' ', 'X', ' '],
+               [' ', ' ', 'X']]
+    assert g.is_any_diagonal_complete('X')
