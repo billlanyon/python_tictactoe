@@ -1,50 +1,66 @@
 from ttt_game import Game
 
 
-def test_01_horizontal_three_of_a_kind_identifies_three_of_a_kind():
+def test_01_is_any_row_complete_identifies_complete_row():
     g = Game()
     g.board = [['X', 'X', 'X'],
                [' ', ' ', ' '],
                [' ', ' ', ' ']]
-    assert g.horizontal_three_of_a_kind('X')
+    assert g.is_any_row_complete('X')
 
 
-def test_02_horizontal_three_of_a_kind_identifies_three_of_a_kind_twice():
+def test_02_is_any_row_complete_identifies_complete_two_rows():
     g = Game()
     g.board = [['X', 'X', 'X'],
                ['O', 'O', 'O'],
                [' ', ' ', ' ']]
-    assert g.horizontal_three_of_a_kind('O')
-    assert g.horizontal_three_of_a_kind('X')
+    assert g.is_any_row_complete('O')
+    assert g.is_any_row_complete('X')
 
 
-def test_03_horizontal_three_of_a_kind_identifies_two_of_a_kind_is_not_three_of_a_kind():
+def test_03_is_any_row_complete_identifies_row():
     g = Game()
     g.board = [['X', 'X', ' '],
                [' ', ' ', ' '],
                [' ', ' ', ' ']]
-    assert not g.horizontal_three_of_a_kind('X')
+    assert not g.is_any_row_complete('X')
 
 
-def test_04_horizontal_three_of_a_kind_identifies_three_of_a_kind_vertical():
+def test_04_is_any_row_complete_identifies_complete_column():
     g = Game()
     g.board = [['X', ' ', ' '],
                ['X', ' ', ' '],
                ['X', ' ', ' ']]
-    assert not g.horizontal_three_of_a_kind('X')
+    assert not g.is_any_row_complete('X')
 
 
-def test_05_horizontal_three_of_a_kind_identifies_two_of_a_kind_diagonal():
+def test_05_is_any_row_complete_identifies_complete_back_diagonal():
     g = Game()
     g.board = [['X', ' ', ' '],
                [' ', 'X', ' '],
                [' ', ' ', 'X']]
-    assert not g.horizontal_three_of_a_kind('X')
+    assert not g.is_any_row_complete('X')
 
 
-def test_06_horizontal_three_of_a_kind_identifies_two_of_a_kind():
+def test_06_is_any_row_complete_identifies_complete_fwd_diagonal():
     g = Game()
-    g.board = [['X', ' ', ' '],
-               ['X', ' ', ' '],
+    g.board = [[' ', ' ', 'X'],
+               [' ', 'X', ' '],
                ['X', ' ', ' ']]
-    assert not g.horizontal_three_of_a_kind('X')
+    assert not g.is_any_row_complete('X')
+
+
+def test_07_is_any_row_complete_identifies_complete_fwd_diagonal():
+    g = Game()
+    g.board = [[' ', ' ', 'X'],
+               [' ', 'X', ' '],
+               ['X', ' ', ' ']]
+    assert not g.is_any_row_complete('X')
+
+
+def test_08_is_any_row_complete_identifies_empty_grid():
+    g = Game()
+    g.board = [[' ', ' ', ' '],
+               [' ', ' ', ' '],
+               [' ', ' ', ' ']]
+    assert not g.is_any_row_complete('X')
