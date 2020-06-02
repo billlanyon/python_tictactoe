@@ -80,3 +80,11 @@ def test_11_is_any_row_complete_identifies_complete_row_for_wrong_player():
                [' ', ' ', ' '],
                [' ', ' ', ' ']]
     assert not g.is_any_row_complete('O')
+
+
+def test_12_is_any_row_complete_identifies_complete_row_for_wrong_symbols():
+    g = Game()
+    g.board = [['A', 'A', 'A'],
+               [' ', ' ', ' '],
+               [' ', ' ', ' ']]
+    assert not g.is_any_row_complete('O')
