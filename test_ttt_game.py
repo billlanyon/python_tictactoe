@@ -50,14 +50,6 @@ def test_06_is_any_row_complete_identifies_complete_fwd_diagonal():
     assert not g.is_any_row_complete('X')
 
 
-def test_07_is_any_row_complete_identifies_complete_fwd_diagonal():
-    g = Game()
-    g.board = [[' ', ' ', 'X'],
-               [' ', 'X', ' '],
-               ['X', ' ', ' ']]
-    assert not g.is_any_row_complete('X')
-
-
 def test_08_is_any_row_complete_identifies_empty_grid():
     g = Game()
     g.board = [[' ', ' ', ' '],

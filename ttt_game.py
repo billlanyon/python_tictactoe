@@ -91,7 +91,7 @@ class Game:
         return [self.board[x][y] for x in range(3) for y in range(3)]
 
     # Single game status testing function?
-    def horizontal_three_of_a_kind(self, player):
+    def is_any_row_complete(self, player):
         """
         Check for three of a kind in the rows
         @param player:
@@ -101,7 +101,7 @@ class Game:
             if self.board[i][0] == self.board[i][1] == self.board[i][2] == player:
                 return True
 
-    def vertical_three_of_a_kind(self, player):
+    def is_any_column_complete(self, player):
         """
         Check for three of a kind in columns
         @param player:
@@ -111,7 +111,7 @@ class Game:
             if self.board[0][i] == self.board[1][i] == self.board[2][i] == player:
                 return True
 
-    def diagonal_three_of_a_kind(self, player):
+    def is_any_diagonal_complete(self, player):
         """
         Check for three of a kind in diagonals
         @param player:
@@ -127,7 +127,7 @@ class Game:
         @param player:
         @return: True if yes, False if not
         """
-        if self.diagonal_three_of_a_kind(player) or self.horizontal_three_of_a_kind(player) or self.vertical_three_of_a_kind(player):
+        if self.is_any_diagonal_complete(player) or self.is_any_row_complete(player) or self.is_any_column_complete(player):
             return True
 
     def status_check(self):
