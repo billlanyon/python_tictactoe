@@ -9,12 +9,11 @@ def test_01_is_any_row_complete_identifies_complete_row():
     assert g.is_any_row_complete('X')
 
 
-def test_02_is_any_row_complete_identifies_complete_two_rows():
+def test_02_is_any_row_complete_identifies_complete_one_of_two_rows():
     g = Game()
-    g.board = [['X', 'X', 'X'],
-               ['O', 'O', 'O'],
+    g.board = [['O', 'O', 'O'],
+               ['X', 'X', 'X'],
                [' ', ' ', ' ']]
-    assert g.is_any_row_complete('O')
     assert g.is_any_row_complete('X')
 
 
@@ -74,7 +73,7 @@ def test_09_is_any_row_complete_identifies_complete_row_for_symbol_other_than_x_
     assert not g.is_any_row_complete('O')
 
 
-def test_10_is_any_column_complete_identifies_complete_column():
+def test_10_is_any_column_complete_identifies_complete():
     g = Game()
     g.board = [['X', ' ', ' '],
                ['X', ' ', ' '],
@@ -95,7 +94,6 @@ def test_12_is_any_column_complete_identifies_complete_two_columns():
     g.board = [['X', 'O', ' '],
                ['X', 'O', ' '],
                ['X', 'O', ' ']]
-    assert g.is_any_column_complete('O')
     assert g.is_any_column_complete('X')
 
 
