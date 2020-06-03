@@ -1,4 +1,4 @@
-from ttt_game import Game
+from src.main.ttt_game import Game
 
 
 def test_01_is_any_row_complete_identifies_complete_row():
