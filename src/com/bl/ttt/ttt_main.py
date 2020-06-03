@@ -1,5 +1,4 @@
-
-import ttt_game
+from bl.ttt import ttt_game
 
 # Instantiate the game instance, which gets the initial board setup from the user
 game = ttt_game.Game()
