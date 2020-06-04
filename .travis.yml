@@ -1,23 +1,23 @@
 language: python
 python:
-  - '3.8'
+  - "3.6"
 
 before_install:
   - wget http://bit.ly/miniconda -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH='$HOME/miniconda/bin:$PATH'
+  - export PATH="$HOME/miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no --set show_channel_urls true
   - conda update conda
   - conda config --add channels conda-forge --force
-  - conda create --name BUILD python=3.8 phantomjs
+  - conda create --name BUILD python=3.6 phantomjs
   - source activate BUILD
   - pip install pytest
 
-  script:
-    - if [[ $TRAVIS_PYTHON_VERSION == '3.8' ]]; then pytest; fi
-  notifications:
-    email:
-      recipients:
-        - billlanyon@me.com
-      on_success: always
-      on_failure: always
+script:
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then python -m pytest -v; fi
+notifications:
+  email:
+    recipients:
+      - billlanyon@me.com
+    on_success: always
+    on_failure: always
