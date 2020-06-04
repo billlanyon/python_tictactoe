@@ -151,3 +151,67 @@ def test_19_is_any_diagonal_complete_identifies_complete_diagonal():
                [' ', 'X', ' '],
                [' ', ' ', 'X']]
     assert g.is_any_diagonal_complete('X')
+
+
+def test_20_player_status_identifies_o_row_win():
+    g = Game()
+    g.board = [[' ', ' ', ' '],
+               ['O', 'O', 'O'],
+               [' ', ' ', ' ']]
+    assert g.player_status('O')
+
+
+def test_21_player_status_identifies_x_column_win():
+    g = Game()
+    g.board = [[' ', 'X', ' '],
+               [' ', 'X', ' '],
+               [' ', 'X', ' ']]
+    assert g.player_status('X')
+
+
+def test_22_player_status_identifies_o_diagonal_win():
+    g = Game()
+    g.board = [['O', ' ', ' '],
+               [' ', 'O', ' '],
+               [' ', ' ', 'O']]
+    assert g.player_status('O')
+
+
+def test_22_player_status_identifies_no_x_diagonal_win():
+    g = Game()
+    g.board = [['O', ' ', ' '],
+               [' ', 'O', ' '],
+               [' ', ' ', 'O']]
+    assert not g.player_status('X')
+
+
+def test_23_player_status_identifies_o_board_complete_win():
+    g = Game()
+    g.board = [['O', 'O', 'X'],
+               ['X', 'O', 'X'],
+               ['X', 'X', 'O']]
+    assert g.player_status('O')
+
+
+def test_24_player_status_identifies_board_complete_draw():
+    g = Game()
+    g.board = [['O', 'O', 'X'],
+               ['X', 'X', 'O'],
+               ['O', 'O', 'X']]
+    assert not g.player_status('X')
+
+
+def test_25_player_status_identifies_no_win_for_symbol_other_than_x_or_o():
+    g = Game()
+    g.board = [['B', ' ', ' '],
+               [' ', 'B', ' '],
+               [' ', ' ', 'B']]
+    assert not g.player_status('X')
+
+
+def test_26_player_status_identifies_no_win_for_empty_grid():
+    g = Game()
+    g.board = [[' ', ' ', ' '],
+               [' ', ' ', ' '],
+               [' ', ' ', ' ']]
+    assert not g.player_status('X')
