@@ -5,7 +5,7 @@ class Tictactoe:
     Concrete class for instantiating specific games based on a single list of nine position strings.
     """
     def __init__(self):
-        self.cells = [[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]
+        self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
     def board(self):
         """

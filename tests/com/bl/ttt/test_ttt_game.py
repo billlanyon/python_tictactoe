@@ -1,3 +1,6 @@
+"""
+Tests for the Game class
+"""
 from com.bl.ttt.ttt_game import Game
 
 
