@@ -1,7 +1,7 @@
 """
 Tests for the Tictactoe class
 """
-from com.bl.ttt.ttt_game import Tictactoe
+from com.bl.ttt.game import Tictactoe
 
 
 def test_01_cells_list_correct_type():

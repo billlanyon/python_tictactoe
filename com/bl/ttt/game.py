@@ -23,7 +23,7 @@ class Tictactoe:
 
 class Game:
     """
-    This class attempts to manage games for ttt_main.py
+    This class attempts to manage games for main.py
     Game class attributes: Are there any?
     Game instance attributes: variety (eg. human vs human); first player; start; moves; end; initial_board; outcome;
     """
