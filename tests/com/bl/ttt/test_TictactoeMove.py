@@ -1,8 +1,5 @@
-"""
-Tests for the TictactoeMove class
-"""
-from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-import pytest
+# Tests for the TictactoeMove class
+from com.bl.ttt.tictactoe import TictactoeMove
 
 
 def test_01_class_tictactoemove_instantiates_with_player_id_x():
@@ -23,12 +20,3 @@ def test_03_class_tictactoemove_instantiates_with_player_id_y():
 def test_04_class_tictactoemove_instantiates_with_move_cell_8():
 	m = TictactoeMove('X', 8)
 	assert m.move_cell == 8
-
-# @pytest.fixture
-# def get_input():
-# 	"""
-# 	Mocked inputs for player and coordinate
-# 	"""
-# 	player_id = 'Y'
-# 	move_cell = 8
-# 	return player_id, move_cell
