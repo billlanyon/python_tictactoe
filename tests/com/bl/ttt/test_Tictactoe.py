@@ -12,6 +12,6 @@ def test_02_cells_list_correct_length():
 	assert len(t.cells) == 9
 
 
-def test_03_repr_check():
+def test_03_repr_check_blank_board():
 	t = Tictactoe()
 	assert repr(t.cells) == str([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '])

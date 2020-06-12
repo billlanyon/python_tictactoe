@@ -10,9 +10,6 @@ class Tictactoe:
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
-    def __repr__(self):
-        return self.cells
-
     def is_valid_move(self, move):
         try:
             coordinate = int(move)
