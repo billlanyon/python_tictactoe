@@ -14,16 +14,16 @@ class Tictactoe:
         return self.cells
 
     def is_valid_move(self, move):
-        if re.match("[0-8]", move):
+        try:
             coordinate = int(move)
-            if self.cells[coordinate] == ' ':
-                return True
-        else:
+            if 8 >= coordinate >= 0:
+                if self.cells[coordinate] == ' ':
+                    return True
+
             return False
 
-    def is_draw(self):
-        pass
-    # No more empty cells
+        except (ValueError, TypeError):
+            return False
 
     def make_move(self, move):
         pass

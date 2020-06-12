@@ -42,6 +42,25 @@ def test_05_is_valid_move_identifies_invalid_negative_coordinate():
 	assert not g.is_valid_move('-4')
 
 
-# print("Enter coordinates from 0 to 8")
-# print("This cell is occupied! Choose another one!")
-# check not none, minus, and in bounds etc.
+def test_06_is_valid_move_identifies_invalid_none_coordinate():
+	g = Tictactoe()
+	g.cells = ['X', 'X', ' ',
+			   ' ', ' ', ' ',
+			   ' ', ' ', ' ']
+	assert not g.is_valid_move(None)
+
+
+def test_07_is_valid_move_identifies_invalid_double_coordinate():
+	g = Tictactoe()
+	g.cells = ['X', 'X', ' ',
+			   ' ', ' ', ' ',
+			   ' ', ' ', ' ']
+	assert not g.is_valid_move(9)
+
+
+def test_08_is_valid_move_identifies_board_already_complete():
+	g = Tictactoe()
+	g.cells = ['X', 'X', 'O',
+			   'O', 'O', 'X',
+			   'X', 'O', 'X']
+	assert not g.is_valid_move('3')
