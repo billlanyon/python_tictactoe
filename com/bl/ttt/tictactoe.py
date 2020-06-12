@@ -18,17 +18,25 @@ class Tictactoe:
             coordinate = int(move)
             if 8 >= coordinate >= 0:
                 if self.cells[coordinate] == ' ':
-                    return True
+                    valid_move_cell = coordinate
+                    return True, valid_move_cell
 
             return False
 
         except (ValueError, TypeError):
             return False
 
-    def make_move(self, move):
-        pass
-    # Test that specific cell has been filled with correct value
-    # test for is_last_move()
+    def make_move(self, player_id, valid_move_cell):
+        try:
+            if player_id == 'X' or player_id == 'O':
+                if any(' ' in cell for cell in self.cells):
+                    self.cells[valid_move_cell] = player_id
+                    return True
+
+            return False
+
+        except (ValueError, TypeError):
+            return False
 
     def is_any_row_complete(self, player_id):
         if self.cells[0] == self.cells[1] == self.cells[2] == player_id or \
@@ -48,7 +56,6 @@ class Tictactoe:
             return True
 
     def has_won(self, player_id):
-        # TODO: refactor to has_won()
         if self.is_any_diagonal_complete(player_id) or self.is_any_row_complete(player_id) or self.is_any_column_complete(player_id):
             return self
 
