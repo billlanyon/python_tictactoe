@@ -10,30 +10,22 @@ class Tictactoe:
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
-    def is_valid_move(self, move):
-        try:
-            coordinate = int(move)
-            if 8 >= coordinate >= 0:
-                if self.cells[coordinate] == ' ':
-                    valid_move_cell = coordinate
-                    return True, valid_move_cell
-
-            return False
-
-        except (ValueError, TypeError):
-            return False
-
-    def make_move(self, player_id, valid_move_cell):
+    def is_valid_move(self, player_id, move):
         try:
             if player_id == 'X' or player_id == 'O':
-                if any(' ' in cell for cell in self.cells):
-                    self.cells[valid_move_cell] = player_id
-                    return True
+                coordinate = int(move)
+                if 8 >= coordinate >= 0:
+                    if self.cells[coordinate] == ' ':
+                        valid_move_cell = coordinate
+                        return True, valid_move_cell
 
             return False
 
         except (ValueError, TypeError):
             return False
+
+    def make_valid_move(self, player_id, move):
+        self.cells[move] = player_id
 
     def is_any_row_complete(self, player_id):
         if self.cells[0] == self.cells[1] == self.cells[2] == player_id or \

@@ -1,4 +1,4 @@
-# Tests make_move()
+# Tests make_valid_move()
 from com.bl.ttt.tictactoe import Tictactoe
 
 
@@ -8,7 +8,7 @@ def test_01_make_move_identifies_played_coordinate():
 	g.cells = ['X', ' ', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	g.make_move('O', 4)
+	g.make_valid_move('O', 4)
 	assert g.cells == ['X', ' ', ' ',
                        ' ', 'O', ' ',
                        ' ', ' ', ' ']
@@ -19,11 +19,11 @@ def test_02_make_move_identifies_not_played_coordinate_on_full_board():
 	g.player_id = 'O'
 	g.cells = ['X', 'X', 'O',
 			   'O', 'O', 'X',
-			   'X', 'O', 'X']
-	g.make_move('O', 5)
+			   'X', 'O', ' ']
+	g.make_valid_move('O', 8)
 	assert g.cells == ['X', 'X', 'O',
                        'O', 'O', 'X',
-                       'X', 'O', 'X']
+                       'X', 'O', 'O']
 
 
 def test_03_make_move_identifies_winning_played_coordinate_on_now_full_board():
@@ -32,9 +32,9 @@ def test_03_make_move_identifies_winning_played_coordinate_on_now_full_board():
 	g.cells = ['X', 'X', 'O',
 			   'O', 'O', ' ',
 			   'X', 'O', 'X']
-	g.make_move('O', 5)
+	g.make_valid_move('X', 5)
 	assert g.cells == ['X', 'X', 'O',
-					   'O', 'O', 'O',
+					   'O', 'O', 'X',
 					   'X', 'O', 'X']
 
 
@@ -44,7 +44,7 @@ def test_04_make_move_identifies_not_played_coordinate_on_occupied_cell():
 	g.cells = ['X', 'X', 'O',
 			   'O', ' ', ' ',
 			   ' ', ' ', ' ']
-	g.make_move('X', 8)
+	g.make_valid_move('X', 8)
 	assert g.cells == ['X', 'X', 'O',
 					   'O', ' ', ' ',
 					   ' ', ' ', 'X']
@@ -56,10 +56,10 @@ def test_05_make_move_identifies_not_played_coordinate_with_invalid_player_id():
 	g.cells = ['X', 'X', 'O',
 			   'O', ' ', ' ',
 			   ' ', ' ', ' ']
-	g.make_move('Z', 8)
+	g.make_valid_move('X', 7)
 	assert g.cells == ['X', 'X', 'O',
 					   'O', ' ', ' ',
-					   ' ', ' ', ' ']
+					   ' ', 'X', ' ']
 
 
 def test_06_make_move_identifies_not_played_coordinate_with_invalid_coordinate():
@@ -68,7 +68,7 @@ def test_06_make_move_identifies_not_played_coordinate_with_invalid_coordinate()
 	g.cells = ['X', 'X', 'O',
 			   'O', ' ', ' ',
 			   ' ', ' ', ' ']
-	g.make_move('Z', 12)
+	g.make_valid_move('O', 6)
 	assert g.cells == ['X', 'X', 'O',
 					   'O', ' ', ' ',
-					   ' ', ' ', ' ']
+					   'O', ' ', ' ']

@@ -7,7 +7,7 @@ def test_01_is_valid_move_identifies_invalid_occupied_coordinate():
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move('1')
+	assert not g.is_valid_move('X', '1')
 
 
 def test_02_is_valid_move_identifies_valid_empty_coordinate():
@@ -15,7 +15,7 @@ def test_02_is_valid_move_identifies_valid_empty_coordinate():
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert g.is_valid_move('2')
+	assert g.is_valid_move('O', '2')
 
 
 def test_03_is_valid_move_identifies_invalid_coordinate():
@@ -23,7 +23,7 @@ def test_03_is_valid_move_identifies_invalid_coordinate():
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move('9')
+	assert not g.is_valid_move('X', '9')
 
 
 def test_04_is_valid_move_identifies_invalid_coordinate_character():
@@ -31,7 +31,7 @@ def test_04_is_valid_move_identifies_invalid_coordinate_character():
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move('J')
+	assert not g.is_valid_move('J', '4')
 
 
 def test_05_is_valid_move_identifies_invalid_negative_coordinate():
@@ -39,28 +39,36 @@ def test_05_is_valid_move_identifies_invalid_negative_coordinate():
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move('-4')
+	assert not g.is_valid_move('O', '-4')
 
 
-def test_06_is_valid_move_identifies_invalid_none_coordinate():
+def test_06_is_valid_move_identifies_invalid_none_player_id():
 	g = Tictactoe()
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move(None)
+	assert not g.is_valid_move(None, '5')
 
 
-def test_07_is_valid_move_identifies_invalid_double_coordinate():
+def test_07_is_valid_move_identifies_invalid_none_coordinate():
 	g = Tictactoe()
 	g.cells = ['X', 'X', ' ',
 			   ' ', ' ', ' ',
 			   ' ', ' ', ' ']
-	assert not g.is_valid_move(9)
+	assert not g.is_valid_move('O', None)
 
 
-def test_08_is_valid_move_identifies_board_already_complete():
+def test_08_is_valid_move_identifies_invalid_out_of_range_coordinate():
+	g = Tictactoe()
+	g.cells = ['X', 'X', ' ',
+			   ' ', ' ', ' ',
+			   ' ', ' ', ' ']
+	assert not g.is_valid_move('O', '9')
+
+
+def test_09_is_valid_move_identifies_board_already_complete():
 	g = Tictactoe()
 	g.cells = ['X', 'X', 'O',
 			   'O', 'O', 'X',
 			   'X', 'O', 'X']
-	assert not g.is_valid_move('3')
+	assert not g.is_valid_move('O', '3')
