@@ -34,7 +34,7 @@ class Tictactoe:
         if self.cells[0] == self.cells[3] == self.cells[6] == player_id or \
                 self.cells[1] == self.cells[4] == self.cells[7] == player_id or \
                 self.cells[2] == self.cells[5] == self.cells[8] == player_id:
-                return True
+            return True
 
     def is_any_diagonal_complete(self, player_id):
         if self.cells[0] == self.cells[4] == self.cells[8] == player_id or \
