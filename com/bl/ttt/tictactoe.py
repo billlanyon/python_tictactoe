@@ -2,7 +2,7 @@ import re
 
 
 class Tictactoe:
-    """ Cell coordinates are:
+    """ Cell coordinate:
     0	1	2
     3	4	5
     6	7	8
@@ -10,11 +10,12 @@ class Tictactoe:
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
-    def is_valid_move(self, cell_chosen):
+    def is_valid_move(self, move):
         try:
-            if 8 >= cell_chosen >= 0:
-                if self.cells[cell_chosen] == ' ':
-                    return True
+            if move.player_id == 'X' or move.player_id == 'O':
+                if 8 >= move.cell_chosen >= 0:
+                    if self.cells[move.cell_chosen] == ' ':
+                        return True
 
             return False
 
@@ -47,10 +48,9 @@ class Tictactoe:
 
 
 class TictactoeMove:
-    # Valid player_id are 'X' or 'O'
     def __init__(self, player_id, cell_chosen):
-        self.player_id = str(player_id)
-        self.cell_chosen = int(cell_chosen)
+        self.player_id = player_id  # TODO Orchestrator to return as str
+        self.cell_chosen = cell_chosen  # TODO Orchestrator to return as int
 
     def get_player_id(self):
         return self.player_id
