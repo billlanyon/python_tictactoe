@@ -21,8 +21,8 @@ class Tictactoe:
         except (ValueError, TypeError):
             return False
 
-    def make_valid_move(self, player_id, cell_chosen):
-        self.cells[cell_chosen] = player_id
+    def make_valid_move(self, move):
+        self.cells[move.cell_chosen] = move.player_id
 
     def is_any_row_complete(self, player_id):
         if self.cells[0] == self.cells[1] == self.cells[2] == player_id or \
