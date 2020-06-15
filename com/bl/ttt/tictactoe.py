@@ -10,9 +10,9 @@ class Tictactoe:
 
     def is_valid_move(self, move):
         try:
-            if self.is_valid_player(move) and \
-               self.is_cell_in_range(move) and \
-               self.is_cell_empty(move):
+            if self._is_valid_player(move) and \
+               self._is_cell_in_range(move) and \
+               self._is_cell_empty(move):
                 return True
             else:
                 return False
@@ -20,13 +20,13 @@ class Tictactoe:
         except (ValueError, TypeError):
             return False
 
-    def is_valid_player(self, move):
+    def _is_valid_player(self, move):
         return move.player_id == 'X' or move.player_id == 'O'
 
-    def is_cell_in_range(self, move):
+    def _is_cell_in_range(self, move):
         return 8 >= move.cell_chosen >= 0
 
-    def is_cell_empty(self, move):
+    def _is_cell_empty(self, move):
         return self.cells[move.cell_chosen] == ' '
 
     def make_valid_move(self, move):
@@ -54,11 +54,10 @@ class Tictactoe:
             return self
 
 
-
 class TictactoeMove:
     def __init__(self, player_id, cell_chosen):
-        self.player_id = player_id  # TODO Orchestrator to return as str
-        self.cell_chosen = cell_chosen  # TODO Orchestrator to return as int
+        self.player_id = player_id
+        self.cell_chosen = cell_chosen
 
     def get_player_id(self):
         return self.player_id

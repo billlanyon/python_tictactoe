@@ -1,4 +1,3 @@
-# Tests is_valid_move()
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 
 
@@ -74,7 +73,16 @@ def test_08_is_valid_move_identifies_invalid_none_move_cell():
     assert not g.is_valid_move(m)
 
 
-def test_09_is_valid_move_identifies_board_already_complete():
+def test_09_is_valid_move_identifies_invalid_string_move_cell():
+    g = Tictactoe()
+    m = TictactoeMove('O', 'Z')
+    g.cells = ['X', 'X', ' ',
+               ' ', ' ', ' ',
+               ' ', ' ', ' ']
+    assert not g.is_valid_move(m)
+
+
+def test_10_is_valid_move_identifies_board_already_complete():
     g = Tictactoe()
     m = TictactoeMove('O', 4)
     g.cells = ['X', 'X', 'O',
