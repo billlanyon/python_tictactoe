@@ -1,7 +1,5 @@
-import re
-
-
 class Tictactoe:
+
     """ Cell coordinate:
     0	1	2
     3	4	5
@@ -12,15 +10,24 @@ class Tictactoe:
 
     def is_valid_move(self, move):
         try:
-            if move.player_id == 'X' or move.player_id == 'O':
-                if 8 >= move.cell_chosen >= 0:
-                    if self.cells[move.cell_chosen] == ' ':
-                        return True
-
-            return False
+            if self.is_valid_player(move) and \
+               self.is_cell_in_range(move) and \
+               self.is_cell_empty(move):
+                return True
+            else:
+                return False
 
         except (ValueError, TypeError):
             return False
+
+    def is_valid_player(self, move):
+        return move.player_id == 'X' or move.player_id == 'O'
+
+    def is_cell_in_range(self, move):
+        return 8 >= move.cell_chosen >= 0
+
+    def is_cell_empty(self, move):
+        return self.cells[move.cell_chosen] == ' '
 
     def make_valid_move(self, move):
         self.cells[move.cell_chosen] = move.player_id
@@ -45,6 +52,7 @@ class Tictactoe:
     def has_won(self, player_id):
         if self.is_any_diagonal_complete(player_id) or self.is_any_row_complete(player_id) or self.is_any_column_complete(player_id):
             return self
+
 
 
 class TictactoeMove:
