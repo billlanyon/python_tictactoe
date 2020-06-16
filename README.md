@@ -4,7 +4,7 @@ The goal of this project is to educate the builder in test-driven object-oriente
 
 Pytest and Travis are testing, Bill Lanyon is learning, Basil Bibi is kindly mentoring.
 
-[![Build Status](https://travis-ci.org/billlanyon/TTT.png?branch=master)](https://travis-ci.org/github/billlanyon/TTT)
+[![Build Status](https://travis-ci.org/billlanyon/TTT.svg?branch=develop)](https://travis-ci.org/billlanyon/TTT)
 
 billlanyon@me.com
 
