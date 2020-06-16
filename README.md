@@ -1,4 +1,4 @@
-###Goal
+### Goal
 TTT is a repository of a tic tac toe game being built in python from the ground up.
 The goal of this project is to educate the builder in test-driven object-oriented development.
 
@@ -14,9 +14,9 @@ Tictactoe, TictactoeMove
 ### Assumptions
 TBC
 
-###External dependencies
+### External dependencies
 TBC
 
-###Usage
+### Usage
 TBC
 
