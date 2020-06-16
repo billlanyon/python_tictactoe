@@ -35,7 +35,9 @@ class Tictactoe:
     def has_won(self, player_id):
         if self._is_any_row_complete(player_id) or self._is_any_column_complete(player_id) or \
                 self._is_any_diagonal_complete(player_id):
-            return self
+            return True
+        else:
+            return False
 
     def _is_any_row_complete(self, player_id):
         if self.cells[0] == self.cells[1] == self.cells[2] == player_id or \
