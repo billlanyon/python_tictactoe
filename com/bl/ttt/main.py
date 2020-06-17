@@ -1,30 +1,59 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 
 # Run the game in a loop until a player has won or there is a draw.
+
 while True:
-    try:
-        new_game = str(input("Would you like to start a new game? Please enter 'y' or 'n': "))
-        if new_game == 'y':
-            # Instantiate the game
-            g = Tictactoe()
-            # Display the board state
+    new_game = str(input("Would you like to start a new game? Please enter 'y' or 'n': "))
+    if new_game == 'y':
+        # Instantiate the game
+        g = Tictactoe()
+        # Display the board state
+        print(g)
+        # Ask for the player_id who will play first
+        player_one = str(input("Who will play first? Enter 'X' or 'O' (that is a capital O, not a zero): "))
+        # Ask for the first player move
+        player_one_move_cell = int(input(f'Player {player_one} enter a coordinate to play from 0 to 8: '))
+        # Create a TicTacToeMove with player input
+        first_move = TictactoeMove(player_one, player_one_move_cell)
+        # Check that first move is valid
+        if g.is_valid_move(first_move):
+            # Make the first valid move
+            g.make_valid_move(first_move)
             print(g)
-            # Ask for the player_id who will play first
-            first_player = str(input("Who will play first? Enter 'X' or 'O' (that is a capital O, not a zero): "))
-            # Ask for the first player move
-            first_player_move = int(input(f'{first_player} enter a coordinate to play from 0 to 8: '))
-            # Create a TicTacToeMove with player input
-            m = TictactoeMove(first_player, first_player_move)
-            # Check that the input is a valid move
-            if g.is_valid_move(m):
-                # Make the valid move
-                g.make_valid_move(m)
-                # Check if player has won, or there is a draw: announce it and ask if the players want to play again.
-                print(g)
-                # Flip players and request move
+            # Set the second player
+            players = ['X', 'O']
+            if player_one == 'X':
+                turn = 1
             else:
-                break
+                turn = 0
+            while True:
+                # Flip player
+                player = players[turn]
+                turn = (turn + 1) % len(players)
+                # Ask for the player_two move
+                player_move_cell = int(input(f'Player {player} enter a coordinate to play from 0 to 8: '))
+                # Create a TicTacToeMove with player input
+                move = TictactoeMove(player, player_move_cell)
+                # Check that move is valid
+                if g.is_valid_move(move):
+                    g.make_valid_move(move)
+                    # Check if player has won
+                    if g.has_won(player):
+                        print(g)
+                        print(f'{move.player_id} has won.')
+                        break
+                    # Check if there is a draw
+                    elif g.is_draw():
+                        print(g)
+                        print('This game is over: it is a draw.')
+                        break
+                    else:
+                        print(g)
+                        continue
+                else:
+                    print('Invalid cmove: please try again.')
         else:
-            break
-    except (ValueError, TypeError):
+            print('Invalid first move: please try again.')
+    else:
+        print('Goodbye.')
         break

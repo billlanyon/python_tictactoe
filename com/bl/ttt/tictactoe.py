@@ -5,7 +5,7 @@ class Tictactoe:
 
     def __str__(self):
         board = f"""
-    | {self.cells[0]} | {self.cells[2]} | {self.cells[3]} |
+    | {self.cells[0]} | {self.cells[1]} | {self.cells[2]} |
     | {self.cells[3]} | {self.cells[4]} | {self.cells[5]} |
     | {self.cells[6]} | {self.cells[7]} | {self.cells[8]} |
     """
@@ -56,6 +56,9 @@ class Tictactoe:
                 self.cells[6] == self.cells[4] == self.cells[2] == player_id:
             return True
 
+    def is_draw(self):
+        if ' ' not in self.cells:
+            return True
 
 class TictactoeMove:
     def __init__(self, player_id, cell_chosen):
