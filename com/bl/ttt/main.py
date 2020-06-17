@@ -1,43 +1,30 @@
-from bl.ttt import ttt_game
+from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 
-# Instantiate the game instance, which gets the initial board setup from the user
-game = ttt_game.Tictactoe()
-# Run the game in a loop
+# Run the game in a loop until a player has won or there is a draw.
 while True:
-    game.display()
-    current_status = game.status_check()
-    if current_status == 'Game not finished':
-        game.input_move()
-        # Flip players between turns
-        if game.player == "X":
-            game.player = "O"
-        elif game.player == "O":
-            game.player = "X"
-    else:
-        print(current_status)
+    try:
+        new_game = str(input("Would you like to start a new game? Please enter 'y' or 'n': "))
+        if new_game == 'y':
+            # Instantiate the game
+            g = Tictactoe()
+            # Display the board state
+            print(g)
+            # Ask for the player_id who will play first
+            first_player = str(input("Who will play first? Enter 'X' or 'O' (that is a capital O, not a zero): "))
+            # Ask for the first player move
+            first_player_move = int(input(f'{first_player} enter a coordinate to play from 0 to 8: '))
+            # Create a TicTacToeMove with player input
+            m = TictactoeMove(first_player, first_player_move)
+            # Check that the input is a valid move
+            if g.is_valid_move(m):
+                # Make the valid move
+                g.make_valid_move(m)
+                # Check if player has won, or there is a draw: announce it and ask if the players want to play again.
+                print(g)
+                # Flip players and request move
+            else:
+                break
+        else:
+            break
+    except (ValueError, TypeError):
         break
-
-
-    # while True:
-    #     try:
-    #         self.initial_setup = input('Enter cells: > ')
-    #         if re.match("^[XO_]*$", self.initial_setup) and len(self.initial_setup) == 9:
-    #             break
-    #         print('Please enter a 9 character string containing only X, O or _')
-    #     except ValueError as error:
-    #         print(error)
-    #         continue
-    # while True:
-    #     try:
-    #         self.player = input('Enter who plays first, X or O: > ')
-    #         self.player = self.player.upper()
-    #         if re.match("^[XO]$", self.player):
-    #             break
-    #         print('Please enter either an X or an O')
-    #     except ValueError as error:
-    #         print(error)
-    #         continue
-    # self.player = self.player.upper()
-    # for x in range(3):
-    #     for y in range(3):
-    #         self.board[x][y] = self.initial_setup[x * 3 + y]

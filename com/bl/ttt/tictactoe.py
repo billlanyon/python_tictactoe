@@ -1,12 +1,15 @@
 class Tictactoe:
 
-    """ Cell coordinate:
-    0	1	2
-    3	4	5
-    6	7	8
-    """
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+
+    def __str__(self):
+        board = f"""
+    | {self.cells[0]} | {self.cells[2]} | {self.cells[3]} |
+    | {self.cells[3]} | {self.cells[4]} | {self.cells[5]} |
+    | {self.cells[6]} | {self.cells[7]} | {self.cells[8]} |
+    """
+        return board
 
     def is_valid_move(self, move):
         try:
