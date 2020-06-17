@@ -1,16 +1,15 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 
 # Run the game in a loop until a player has won or there is a draw.
-
 while True:
     new_game = str(input("Would you like to start a new game? Please enter 'y' or 'n': "))
     if new_game == 'y':
         # Instantiate the game
         g = Tictactoe()
-        # Display the board state
-        print(g)
         # Ask for the player_id who will play first
         player_one = str(input("Who will play first? Enter 'X' or 'O' (that is a capital O, not a zero): "))
+        # Display the board state
+        print(g)
         # Ask for the first player move
         player_one_move_cell = int(input(f'Player {player_one} enter a coordinate to play from 0 to 8: '))
         # Create a TicTacToeMove with player input
@@ -40,7 +39,7 @@ while True:
                     # Check if player has won
                     if g.has_won(player):
                         print(g)
-                        print(f'{move.player_id} has won.')
+                        print(f'Player {move.player_id} has won.')
                         break
                     # Check if there is a draw
                     elif g.is_draw():
@@ -51,9 +50,9 @@ while True:
                         print(g)
                         continue
                 else:
-                    print('Invalid cmove: please try again.')
+                    print('That is an invalid move: please try again.')
         else:
-            print('Invalid first move: please try again.')
+            print('That is an invalid first move: please try again.')
     else:
-        print('Goodbye.')
+        print('Thanks for playing and goodbye.')
         break
