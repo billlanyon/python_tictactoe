@@ -1,73 +1,50 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 import re
 
+game_over = False
+player_retakes_move = True
+get_next_move = True
 
-# Run the game in a loop until a player has won or there is a draw.
-while True:
-    try:
-        new_game_input = str(input("Would you like to start a new game? Please enter 'y' or 'n': "))
-        if new_game_input is not None and re.match("^[yn]$", new_game_input):
-            new_game = new_game_input
-        else:
-            print("Please enter either a valid 'y' or a valid 'n'.")
-            continue
-    except (ValueError, TypeError):
-        break
-    if new_game == 'y':
-        # Instantiate the game
-        g = Tictactoe()
-        try:
-            # Ask for the player_id who will play first
-            player_one_input = str(input("Who will play first? Enter 'X' or 'O' (that is a capital O, not a zero): "))
-            if player_one_input is not None and re.match("^[XO]$", player_one_input):
-                player_one = player_one_input
-            else:
-                print("Please enter either a valid 'X' or a valid 'O'.")
-                break
-        except (ValueError, TypeError):
-            break
-        # Display the board state
-        print(g)
-        players = ['X', 'O']
-        if player_one == 'X':
-            turn = 0
-        else:
-            turn = 1
-        while True:
-            # Flip player
-            player = players[turn]
-            try:
-                # Ask for the player_two move
-                player_move_cell = input(f'Player {player} enter a coordinate to play from 0 to 8: ')
-                if player_move_cell is not None and re.match("^[0-8]{1}$", player_move_cell):
-                    player_move_cell = int(player_move_cell)
-                else:
-                    print(f'Player {player} please enter a valid coordinate from 0 to 8!')
-                    continue
-            except (ValueError, TypeError):
-                break
-            # Create a TicTacToeMove with player input
-            move = TictactoeMove(player, player_move_cell)
-            # Check that move is valid
-            if g.is_valid_move(move):
-                g.make_valid_move(move)
-                # Check if player has won
-                if g.has_won(player):
-                    print(g)
-                    print(f'Player {move.player_id} has won.')
-                    break
-                # Check if there is a draw
-                elif g.is_draw():
-                    print(g)
-                    print('This game is over: it is a draw.')
-                    break
-                else:
-                    print(g)
-                    # Increment turn
-                    turn = (turn + 1) % len(players)
-                    continue
-            else:
-                print('That is an invalid move: please try again.')
+
+def process_another_move(game):
+    player_id, cell = input("Please enter player 'X' or 'O' and select a cell to play from 0 to 8: ").split(' ')
+    move = TictactoeMove(player_id, int(cell))
+    if game.is_valid_move(move):
+        game.make_valid_move(move)
     else:
-        print('Thanks for playing and goodbye.')
-        break
+        print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
+        return player_retakes_move
+    if game.has_won(player_id):
+        print(game)
+        print(f'Player {player_id} has won.')
+        return game_over
+    elif game.is_draw():
+        print(game)
+        print(f'This game is over: it is a draw and neither player has won.')
+        return game_over
+    else:
+        return get_next_move
+
+
+def process_player_turns(game):
+    while process_another_move(game):
+        print(game)
+
+
+def main():
+    while True:
+        if input("Would you like to start a new game of Tic Tac Toe? Please enter 'y' or 'n': ") != 'y':
+            print('Thanks for playing and goodbye.')
+            return game_over
+        game = Tictactoe()
+        print("""The board coordinates are:
+
+    | 0 | 1 | 2 |
+    | 3 | 4 | 5 |
+    | 6 | 7 | 8 |
+    """)
+        process_player_turns(game)
+
+
+if __name__ == "__main__":
+    main()
