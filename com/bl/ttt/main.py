@@ -7,13 +7,19 @@ get_next_move = True
 
 
 def process_another_move(game):
-    player_id, cell = input("Please enter player 'X' or 'O' and select a cell to play from 0 to 8: ").split(' ')
-    move = TictactoeMove(player_id, int(cell))
+    while True:
+        try:
+            player_id, cell = input("Please enter player 'X' or 'O', a space, and then a cell from 0 to 8: ").split(' ')
+        except ValueError:
+            print('That was an invalid input: please try again.')
+            continue
+        else:
+            move = TictactoeMove(player_id, int(cell))
+            break
     if game.is_valid_move(move):
         game.make_valid_move(move)
     else:
         print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
-        return player_retakes_move
     if game.has_won(player_id):
         print(game)
         print(f'Player {player_id} has won.')
@@ -31,9 +37,25 @@ def process_player_turns(game):
         print(game)
 
 
+def get_game_start():
+    while True:
+        try:
+            new_game_input = input("Would you like to start a new game of Tic Tac Toe? Please enter 'y' or 'n': ")
+            if new_game_input is not None and new_game_input == 'n' or new_game_input == 'y':
+                new_game = new_game_input
+            else:
+                print('That was an invalid input: please try again.')
+                break
+        except (Exception, ValueError):
+            break
+        else:
+            return new_game
+
+
 def main():
     while True:
-        if input("Would you like to start a new game of Tic Tac Toe? Please enter 'y' or 'n': ") != 'y':
+        # if input("Would you like to start a new game of Tic Tac Toe? Please enter 'y' or 'n': ") != 'y':
+        if get_game_start() != 'y':
             print('Thanks for playing and goodbye.')
             return game_over
         game = Tictactoe()
