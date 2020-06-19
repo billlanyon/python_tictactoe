@@ -1,8 +1,8 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-import re
+
 
 game_over = False
-player_retakes_move = True
+player_tries_again = True
 get_next_move = True
 
 
@@ -45,7 +45,7 @@ def get_game_start():
                 new_game = new_game_input
             else:
                 print('That was an invalid input: please try again.')
-                break
+                continue
         except (Exception, ValueError):
             break
         else:
