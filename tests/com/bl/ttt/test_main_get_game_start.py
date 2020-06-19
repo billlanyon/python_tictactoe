@@ -4,12 +4,12 @@ from com.bl.ttt.main import get_game_start
 
 def test_01_main_get_game_start_valid_input():
     with mock.patch('builtins.input', side_effect=['y']):
-        assert get_game_start() == 'y'
+        assert get_game_start() == 'Y'
 
 
 def test_02_main_get_game_start_valid_input():
     with mock.patch('builtins.input', side_effect=['n']):
-        assert get_game_start() == 'n'
+        assert get_game_start() == 'N'
 
 
 def test_03_main_get_game_start_invalid_input():
