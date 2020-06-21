@@ -60,6 +60,7 @@ class Tictactoe:
         if ' ' not in self.cells:
             return True
 
+
 class TictactoeMove:
     def __init__(self, player_id, cell_chosen):
         self.player_id = player_id
