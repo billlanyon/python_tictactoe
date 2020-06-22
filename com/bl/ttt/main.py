@@ -1,4 +1,5 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+from random import randrange
 
 game_over = False
 player_tries_again = True
@@ -41,6 +42,11 @@ def get_game_start():
                 continue
         except (Exception, ValueError):
             break
+
+
+def get_computer_move():
+    computer_move = randrange(9)
+    return computer_move
 
 
 def main():
