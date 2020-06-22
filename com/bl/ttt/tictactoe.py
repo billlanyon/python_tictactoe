@@ -1,12 +1,15 @@
 class Tictactoe:
 
-    """ Cell coordinate:
-    0	1	2
-    3	4	5
-    6	7	8
-    """
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+
+    def __str__(self):
+        board = f"""
+    | {self.cells[0]} | {self.cells[1]} | {self.cells[2]} |
+    | {self.cells[3]} | {self.cells[4]} | {self.cells[5]} |
+    | {self.cells[6]} | {self.cells[7]} | {self.cells[8]} |
+    """
+        return board
 
     def is_valid_move(self, move):
         try:
@@ -21,16 +24,16 @@ class Tictactoe:
             return False
 
     def _is_valid_player(self, move):
-        return move.player_id == 'X' or move.player_id == 'O'
+        return move.get_player_id() == 'X' or move.get_player_id() == 'O'
 
     def _is_cell_in_range(self, move):
-        return 8 >= move.cell_chosen >= 0
+        return 8 >= move.get_cell_chosen() >= 0
 
     def _is_cell_empty(self, move):
-        return self.cells[move.cell_chosen] == ' '
+        return self.cells[move.get_cell_chosen()] == ' '
 
     def make_valid_move(self, move):
-        self.cells[move.cell_chosen] = move.player_id
+        self.cells[move.get_cell_chosen()] = move.get_player_id()
 
     def has_won(self, player_id):
         return self._is_any_row_complete(player_id) or self._is_any_column_complete(player_id) or \
@@ -53,6 +56,9 @@ class Tictactoe:
                 self.cells[6] == self.cells[4] == self.cells[2] == player_id:
             return True
 
+    def is_draw(self):
+        return ' ' not in self.cells
+
 
 class TictactoeMove:
     def __init__(self, player_id, cell_chosen):
@@ -62,5 +68,5 @@ class TictactoeMove:
     def get_player_id(self):
         return self.player_id
 
-    def cell_chosen(self):
+    def get_cell_chosen(self):
         return self.cell_chosen

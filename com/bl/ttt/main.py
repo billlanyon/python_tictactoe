@@ -1,43 +1,62 @@
-from bl.ttt import ttt_game
+from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 
-# Instantiate the game instance, which gets the initial board setup from the user
-game = ttt_game.Tictactoe()
-# Run the game in a loop
-while True:
-    game.display()
-    current_status = game.status_check()
-    if current_status == 'Game not finished':
-        game.input_move()
-        # Flip players between turns
-        if game.player == "X":
-            game.player = "O"
-        elif game.player == "O":
-            game.player = "X"
+game_over = False
+player_tries_again = True
+get_next_move = True
+
+
+def process_another_move(game):
+    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
+    move = TictactoeMove(player_id, int(cell))
+    if game.is_valid_move(move):
+        game.make_valid_move(move)
     else:
-        print(current_status)
-        break
+        print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
+        return player_tries_again
+    if game.has_won(player_id):
+        print(game)
+        print(f'Player {player_id} has won.')
+        return game_over
+    elif game.is_draw():
+        print(game)
+        print(f'This game is over: it is a draw and neither player has won.')
+        return game_over
+    else:
+        return get_next_move
 
 
-    # while True:
-    #     try:
-    #         self.initial_setup = input('Enter cells: > ')
-    #         if re.match("^[XO_]*$", self.initial_setup) and len(self.initial_setup) == 9:
-    #             break
-    #         print('Please enter a 9 character string containing only X, O or _')
-    #     except ValueError as error:
-    #         print(error)
-    #         continue
-    # while True:
-    #     try:
-    #         self.player = input('Enter who plays first, X or O: > ')
-    #         self.player = self.player.upper()
-    #         if re.match("^[XO]$", self.player):
-    #             break
-    #         print('Please enter either an X or an O')
-    #     except ValueError as error:
-    #         print(error)
-    #         continue
-    # self.player = self.player.upper()
-    # for x in range(3):
-    #     for y in range(3):
-    #         self.board[x][y] = self.initial_setup[x * 3 + y]
+def process_player_turns(game):
+    while process_another_move(game):
+        print(game)
+
+
+def get_game_start():
+    while True:
+        try:
+            new_game_input = input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ").upper()
+            if new_game_input is not None and (new_game_input == 'N' or new_game_input == 'Y'):
+                return new_game_input
+            else:
+                print('That was an invalid input: please try again.')
+                continue
+        except (Exception, ValueError):
+            break
+
+
+def main():
+    while True:
+        if get_game_start() != 'Y':
+            print('Thanks for playing and goodbye.')
+            return game_over
+        game = Tictactoe()
+        print("""The board coordinates are:
+
+    | 0 | 1 | 2 |
+    | 3 | 4 | 5 |
+    | 6 | 7 | 8 |
+    """)
+        process_player_turns(game)
+
+
+if __name__ == "__main__":
+    main()
