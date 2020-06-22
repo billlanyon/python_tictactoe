@@ -15,3 +15,12 @@ def test_02_is_draw_identifies_not_yet_draw():
                'X', 'O', ' ',
                'O', 'X', 'O']
     assert not g.is_draw()
+
+
+def test_03_is_draw_identifies_win_not_draw():
+    g = Tictactoe()
+    g.cells = ['X', 'X', 'O',
+               'X', 'O', ' ',
+               'O', 'X', 'O']
+    assert g.has_won('O')
+    assert not g.is_draw()

@@ -57,8 +57,7 @@ class Tictactoe:
             return True
 
     def is_draw(self):
-        if ' ' not in self.cells:
-            return True
+        return ' ' not in self.cells
 
 
 class TictactoeMove:
