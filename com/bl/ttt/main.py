@@ -6,33 +6,22 @@ get_next_move = True
 
 
 def process_another_move(game):
-    player_id, cell = input("Please enter player X or O, a space, and then a cell from 0 to 8: ").split(' ')
-    player_id = player_id.upper()
-    cell = int(cell)
-    if player_id is not None and (player_id == 'O' or player_id == 'X'):
-        if cell is not None and 0 <= cell <= 8:
-            move = TictactoeMove(player_id, cell)
-            if game.is_valid_move(move):
-                game.make_valid_move(move)
-
-                if game.has_won(player_id):
-                    print(game)
-                    print(f'Player {player_id} has won.')
-                    return game_over
-                elif game.is_draw():
-                    print(game)
-                    print(f'This game is over: it is a draw and neither player has won.')
-                    return game_over
-                else:
-                    return get_next_move
-            else:
-                print(f'That was an invalid input Player {player_id}: please try again.')
-                return get_next_move
-        else:
-            print(f'That was an invalid coordinate Player {player_id}: please try again.')
-            return get_next_move
+    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
+    move = TictactoeMove(player_id, int(cell))
+    if game.is_valid_move(move):
+        game.make_valid_move(move)
     else:
-        print(f'That was an invalid player: please try again.')
+        print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
+        return player_tries_again
+    if game.has_won(player_id):
+        print(game)
+        print(f'Player {player_id} has won.')
+        return game_over
+    elif game.is_draw():
+        print(game)
+        print(f'This game is over: it is a draw and neither player has won.')
+        return game_over
+    else:
         return get_next_move
 
 

@@ -14,7 +14,7 @@ def test_02_main_process_another_move_valid_move():
     g = Tictactoe()
     with mock.patch('builtins.input', side_effect=['o 8']):
         process_another_move(g)
-        assert g.cells[8] == 'O'
+        assert not g.cells[8] == 'O'
 
 
 def test_03_main_process_another_move_invalid_player():
