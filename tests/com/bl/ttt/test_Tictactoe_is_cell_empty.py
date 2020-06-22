@@ -7,7 +7,7 @@ def test_01_is_cell_empty_identifies_empty_cell():
                ' ', ' ', ' ',
                ' ', ' ', ' ']
     m = TictactoeMove('O', 2)
-    assert g._is_cell_empty(m)
+    assert (g._is_cell_empty(m))
 
 
 def test_02_is_cell_empty_identifies_empty_cell():
