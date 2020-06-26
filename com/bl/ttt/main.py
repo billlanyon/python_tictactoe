@@ -43,11 +43,25 @@ def get_game_start():
             break
 
 
+def get_game_type():
+    while True:
+        try:
+            game_type_input = input("What kind of game would you like to play? Please enter 'h' for human or 'c' for computer: ").upper()
+            if game_type_input is not None and (game_type_input == 'H' or game_type_input == 'C'):
+                return game_type_input
+            else:
+                print('That was an invalid input: please try again.')
+                continue
+        except (Exception, ValueError):
+            break
+
+
 def main():
     while True:
         if get_game_start() != 'Y':
             print('Thanks for playing and goodbye.')
             return game_over
+        get_game_type()
         game = Tictactoe()
         print("""The board coordinates are:
 
