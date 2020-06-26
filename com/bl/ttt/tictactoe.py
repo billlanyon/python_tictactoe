@@ -4,6 +4,10 @@ class Tictactoe:
 
     def __init__(self):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+        self.player1 = None
+        self.player2 = None
+        self.turn = None
+
 
     def __str__(self):
         board = f"""

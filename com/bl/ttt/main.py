@@ -1,33 +1,9 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+from com.bl.ttt.player import TictactoeHumanPlayer, TictactoeComputerPlayer
 
 game_over = False
 player_tries_again = True
 get_next_move = True
-
-
-def process_another_move(game):
-    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    move = TictactoeMove(player_id, int(cell))
-    if game.is_valid_move(move):
-        game.make_valid_move(move)
-    else:
-        print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
-        return player_tries_again
-    if game.has_won(player_id):
-        print(game)
-        print(f'Player {player_id} has won.')
-        return game_over
-    elif game.is_draw():
-        print(game)
-        print(f'This game is over: it is a draw and neither player has won.')
-        return game_over
-    else:
-        return get_next_move
-
-
-def process_player_turns(game):
-    while process_another_move(game):
-        print(game)
 
 
 def get_game_start():
@@ -54,6 +30,57 @@ def get_game_type():
                 continue
         except (Exception, ValueError):
             break
+
+
+def get_first_move(game):
+    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
+    game.player1 = TictactoeHumanPlayer(player_id, 1)
+    if player_id == 'X':
+        game.player2 = TictactoeComputerPlayer('O', 2)
+    else:
+        game.player2 = TictactoeComputerPlayer('X', 2)
+    move = TictactoeMove(player_id, int(cell))
+    if game.is_valid_move(move):
+        game.make_valid_move(move)
+    else:
+        print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
+        return player_tries_again
+    print(f"Got and processed {player_id}'s first move")
+    game.turn = player_id
+    print(f'At the end of get_first_move, game.turn is {game.turn}.')
+    return move
+
+
+def process_another_move(game):
+    if game.turn == 'X':
+        game.turn = 'O'
+    else:
+        game.turn = 'X'
+    player_id = game.turn
+    cell = input(f'Player {player_id} please enter a cell from 0 to 8: ')
+    move = TictactoeMove(player_id, int(cell))
+    if game.is_valid_move(move):
+        game.make_valid_move(move)
+    else:
+        print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
+        return player_tries_again
+    if game.has_won(move.player_id):
+        print(game)
+        print(f'Player {move.player_id} has won.')
+        return game_over
+    elif game.is_draw():
+        print(game)
+        print(f'This game is over: it is a draw and neither player has won.')
+        return game_over
+    else:
+        return get_next_move
+
+
+def process_player_turns(game):
+    get_first_move(game)
+    print(game)
+    while process_another_move(game):
+        print(game)
 
 
 def main():
