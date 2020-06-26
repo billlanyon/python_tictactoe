@@ -1,5 +1,4 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-from random import randrange
 
 game_over = False
 player_tries_again = True
@@ -42,24 +41,6 @@ def get_game_start():
                 continue
         except (Exception, ValueError):
             break
-
-
-def get_computer_game_start():
-    while True:
-        try:
-            new_computer_game_input = input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ").upper()
-            if new_computer_game_input is not None and (new_computer_game_input == 'N' or new_computer_game_input == 'Y'):
-                return new_computer_game_input
-            else:
-                print('That was an invalid input: please try again.')
-                continue
-        except (Exception, ValueError):
-            break
-
-
-def get_computer_move():
-    computer_move = randrange(9)
-    return computer_move
 
 
 def main():
