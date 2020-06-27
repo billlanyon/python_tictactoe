@@ -1,5 +1,5 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-from com.bl.ttt.player import TictactoeHumanPlayer, TictactoeComputerPlayer
+from random import randrange
 
 game_over = False
 player_tries_again = True
@@ -34,21 +34,24 @@ def get_game_type():
 
 def get_first_move(game):
     player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    game.player1 = TictactoeHumanPlayer(player_id, 1)
-    if player_id == 'X':
-        game.player2 = TictactoeComputerPlayer('O', 2)
+    game.player1 = player_id
+    if game.player1 == 'X':
+        game.player2 = 'O'
     else:
-        game.player2 = TictactoeComputerPlayer('X', 2)
+        game.player2 = 'X'
     move = TictactoeMove(player_id, int(cell))
     if game.is_valid_move(move):
         game.make_valid_move(move)
     else:
         print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
         return player_tries_again
-    print(f"Got and processed {player_id}'s first move")
     game.turn = player_id
-    print(f'At the end of get_first_move, game.turn is {game.turn}.')
     return move
+
+
+def get_computer_move():
+    computer_move = randrange(9)
+    return computer_move
 
 
 def process_another_move(game):
@@ -88,8 +91,9 @@ def main():
         if get_game_start() != 'Y':
             print('Thanks for playing and goodbye.')
             return game_over
-        get_game_type()
         game = Tictactoe()
+        if get_game_type() == 'C':
+            game.computer_player = game.player2
         print("""The board coordinates are:
 
     | 0 | 1 | 2 |

@@ -7,6 +7,7 @@ class Tictactoe:
         self.player1 = None
         self.player2 = None
         self.turn = None
+        self.computer_player = None
 
 
     def __str__(self):
