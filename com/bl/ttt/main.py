@@ -22,7 +22,7 @@ def get_game_start():
 def get_game_type():
     while True:
         try:
-            game_type_input = input("What kind of game would you like to play? Please enter 'h' for human or 'c' for computer: ").upper()
+            game_type_input = input("What kind of game will you play: enter 'h' for human or 'c' for computer: ").upper()
             if game_type_input is not None and (game_type_input == 'H' or game_type_input == 'C'):
                 return game_type_input
             else:
@@ -45,22 +45,30 @@ def get_first_move(game):
     else:
         print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
         return player_tries_again
-    game.turn = player_id
+    game.turn_player = player_id
+    game.turn_counter = 1
     return move
 
 
-def get_computer_move():
-    computer_move = randrange(9)
-    return computer_move
-
-
 def process_another_move(game):
-    if game.turn == 'X':
-        game.turn = 'O'
+    game.turn_counter += 1
+    if game.turn_player == 'X':
+        game.turn_player = 'O'
     else:
-        game.turn = 'X'
-    player_id = game.turn
-    cell = input(f'Player {player_id} please enter a cell from 0 to 8: ')
+        game.turn_player = 'X'
+    player_id = game.turn_player
+    print(f'GP1: {game.player1}. GP2: {game.player2}. GTP: {game.turn_player}. GCP: {game.computer_player}. GTC: {game.turn_counter}.')
+    if game.computer_player is not None and game.turn_counter % 2 == 0:
+        while True:
+            computer_move = randrange(9)
+            if game.cells[computer_move] == ' ':
+                cell = computer_move
+                print(f'The computer player {game.player2} played cell {computer_move}.')
+            else:
+                continue
+            break
+    else:
+        cell = input(f'Player {player_id} please enter a cell from 0 to 8: ')
     move = TictactoeMove(player_id, int(cell))
     if game.is_valid_move(move):
         game.make_valid_move(move)
@@ -93,7 +101,7 @@ def main():
             return game_over
         game = Tictactoe()
         if get_game_type() == 'C':
-            game.computer_player = game.player2
+            game.computer_player = 2
         print("""The board coordinates are:
 
     | 0 | 1 | 2 |

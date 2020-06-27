@@ -6,8 +6,9 @@ class Tictactoe:
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
         self.player1 = None
         self.player2 = None
-        self.turn = None
+        self.turn_player = None
         self.computer_player = None
+        self.turn_counter = 0
 
 
     def __str__(self):
