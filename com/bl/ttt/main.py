@@ -1,5 +1,6 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 from random import randrange
+import time
 
 game_over = False
 player_tries_again = True
@@ -57,24 +58,28 @@ def process_another_move(game):
     else:
         game.turn_player = 'X'
     player_id = game.turn_player
-    print(f'GP1: {game.player1}. GP2: {game.player2}. GTP: {game.turn_player}. GCP: {game.computer_player}. GTC: {game.turn_counter}.')
+    # print(f'GP1: {game.player1} | GP2: {game.player2} | GTP: {game.turn_player} | GCP: {game.computer_player} | GTC: {game.turn_counter}.')
     if game.computer_player is not None and game.turn_counter % 2 == 0:
         while True:
-            computer_move = randrange(9)
-            if game.cells[computer_move] == ' ':
-                cell = computer_move
-                print(f'The computer player {game.player2} played cell {computer_move}.')
+            computer_cell = randrange(9)
+            move = TictactoeMove(player_id, computer_cell)
+            if game.is_valid_move(move):
+                game.make_valid_move(move)
+                print(f'The computer player {game.player2} is going to play cell {computer_cell}.')
+                time.sleep(2)
             else:
                 continue
             break
     else:
-        cell = input(f'Player {player_id} please enter a cell from 0 to 8: ')
-    move = TictactoeMove(player_id, int(cell))
-    if game.is_valid_move(move):
-        game.make_valid_move(move)
-    else:
-        print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
-        return player_tries_again
+        while True:
+            human_cell = input(f'Player {player_id}: please enter a cell from 0 to 8: ')
+            move = TictactoeMove(player_id, int(human_cell))
+            if game.is_valid_move(move):
+                game.make_valid_move(move)
+            else:
+                print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
+                continue
+            break
     if game.has_won(move.player_id):
         print(game)
         print(f'Player {move.player_id} has won.')

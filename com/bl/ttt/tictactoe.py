@@ -10,7 +10,6 @@ class Tictactoe:
         self.computer_player = None
         self.turn_counter = 0
 
-
     def __str__(self):
         board = f"""
     | {self.cells[0]} | {self.cells[1]} | {self.cells[2]} |
