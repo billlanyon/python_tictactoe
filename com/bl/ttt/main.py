@@ -35,54 +35,54 @@ def get_game_type():
 
 def get_first_move(game):
     player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    game.player1 = player_id
-    if game.player1 == 'X':
-        game.player2 = 'O'
-    else:
-        game.player2 = 'X'
-    move = TictactoeMove(player_id, int(cell))
+    game.set_player_order(player_id)
+    move = TictactoeMove(game.player1, int(cell))
     if game.is_valid_move(move):
         game.make_valid_move(move)
     else:
         print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
         return player_tries_again
-    game.turn_player = player_id
     game.turn_counter = 1
     return move
 
 
+def get_computer_move(game):
+    while True:
+        computer_cell = randrange(9)
+        move = TictactoeMove(game.get_player_id(), computer_cell)
+        if game.is_valid_move(move):
+            game.make_valid_move(move)
+            print(f'The computer player is going to play cell {computer_cell}.')
+            time.sleep(2)
+        else:
+            continue
+        game.turn_counter += 1
+        return get_next_move
+
+
+def get_human_move(game):
+    while True:
+        human_cell = input(f'Player {game.get_player_id()}: please enter a cell from 0 to 8: ')
+        move = TictactoeMove(game.get_player_id(), int(human_cell))
+        if game.is_valid_move(move):
+            game.make_valid_move(move)
+        else:
+            print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
+            continue
+        game.turn_counter += 1
+        return get_next_move
+
+
 def process_another_move(game):
     game.turn_counter += 1
-    if game.turn_player == 'X':
-        game.turn_player = 'O'
+    print(f'GP1: {game.player1} | GP2: {game.player2} | GPID: {game.get_player_id()} | GTC: {game.turn_counter} | GICG: {game.is_computer_game}')
+    if game.get_computer_game() is True and game.get_turn_count() % 2 == 0:
+        get_computer_move(game)
     else:
-        game.turn_player = 'X'
-    player_id = game.turn_player
-    # print(f'GP1: {game.player1} | GP2: {game.player2} | GTP: {game.turn_player} | GCP: {game.computer_player} | GTC: {game.turn_counter}.')
-    if game.computer_player is not None and game.turn_counter % 2 == 0:
-        while True:
-            computer_cell = randrange(9)
-            move = TictactoeMove(player_id, computer_cell)
-            if game.is_valid_move(move):
-                game.make_valid_move(move)
-                print(f'The computer player {game.player2} is going to play cell {computer_cell}.')
-                time.sleep(2)
-            else:
-                continue
-            break
-    else:
-        while True:
-            human_cell = input(f'Player {player_id}: please enter a cell from 0 to 8: ')
-            move = TictactoeMove(player_id, int(human_cell))
-            if game.is_valid_move(move):
-                game.make_valid_move(move)
-            else:
-                print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
-                continue
-            break
-    if game.has_won(move.player_id):
+        get_human_move(game)
+    if game.has_won(game.get_player_id()):
         print(game)
-        print(f'Player {move.player_id} has won.')
+        print(f'Player {game.get_player_id()} has won.')
         return game_over
     elif game.is_draw():
         print(game)
@@ -106,7 +106,8 @@ def main():
             return game_over
         game = Tictactoe()
         if get_game_type() == 'C':
-            game.computer_player = 2
+            game.set_computer_game()
+            print('OK, you will play first and the computer will play second.')
         print("""The board coordinates are:
 
     | 0 | 1 | 2 |
