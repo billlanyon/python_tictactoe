@@ -34,55 +34,51 @@ def get_game_type():
 
 
 def get_first_move(game):
-    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    game.set_player_order(player_id)
-    move = TictactoeMove(game.player1, int(cell))
+    first_player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
+    move = TictactoeMove(first_player_id, int(cell))
     if game.is_valid_move(move):
         game.make_valid_move(move)
     else:
         print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
         return player_tries_again
-    game.turn_counter = 1
-    return move
+    game.set_player_ids(first_player_id)
+    return get_next_move
 
 
 def get_computer_move(game):
     while True:
         computer_cell = randrange(9)
-        move = TictactoeMove(game.get_player_id(), computer_cell)
+        move = TictactoeMove(game.get_turn_player(), computer_cell)
         if game.is_valid_move(move):
             game.make_valid_move(move)
-            print(f'The computer player is going to play cell {computer_cell}.')
+            print(f'The computer player {game.get_turn_player()} is going to play cell {computer_cell}.')
             time.sleep(2)
         else:
             continue
-        game.turn_counter += 1
         return get_next_move
 
 
 def get_human_move(game):
     while True:
-        human_cell = input(f'Player {game.get_player_id()}: please enter a cell from 0 to 8: ')
-        move = TictactoeMove(game.get_player_id(), int(human_cell))
+        human_cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
+        move = TictactoeMove(game.get_turn_player(), int(human_cell))
         if game.is_valid_move(move):
             game.make_valid_move(move)
         else:
-            print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
+            print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
             continue
-        game.turn_counter += 1
         return get_next_move
 
 
 def process_another_move(game):
-    game.turn_counter += 1
-    print(f'GP1: {game.player1} | GP2: {game.player2} | GPID: {game.get_player_id()} | GTC: {game.turn_counter} | GICG: {game.is_computer_game}')
-    if game.get_computer_game() is True and game.get_turn_count() % 2 == 0:
+    print(f'GP1 = {game.get_player1_id()} | GP2 = {game.get_player2_id()} | GTP = {game.get_turn_player()} | GTC = {game.get_turn_counter()}')
+    if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
         get_computer_move(game)
     else:
         get_human_move(game)
-    if game.has_won(game.get_player_id()):
+    if game.has_won(game.get_turn_player()):
         print(game)
-        print(f'Player {game.get_player_id()} has won.')
+        print(f'Player {game.get_turn_player()} has won.')
         return game_over
     elif game.is_draw():
         print(game)

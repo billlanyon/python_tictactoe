@@ -10,7 +10,7 @@ def test_01_main_process_another_move_valid_move():
                'O', ' ', 'O']
     g.player1 = 'O'
     g.player2 = 'X'
-    g.turn_counter = 9
+    g.turn_counter = 10
     with mock.patch('builtins.input', side_effect=[7]):
         process_another_move(g)
         assert g.cells == ['X', 'O', 'X',

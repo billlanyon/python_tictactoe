@@ -1,5 +1,3 @@
-
-
 class Tictactoe:
 
     def __init__(self):
@@ -7,8 +5,8 @@ class Tictactoe:
         self.is_computer_game = False
         self.player1 = None
         self.player2 = None
-        self.turn_counter = 0
         self.player_id = None
+        self.turn_counter = 0
 
     def __str__(self):
         board = f"""
@@ -18,28 +16,38 @@ class Tictactoe:
     """
         return board
 
-    def set_player_order(self, player_id):
-        self.player1 = player_id
-        if self.player1 == 'X':
-            self.player2 = 'O'
-        else:
-            self.player2 = 'X'
-
     def set_computer_game(self):
         self.is_computer_game = True
 
     def get_computer_game(self):
         return self.is_computer_game
 
-    def get_player_id(self):
-        if self.turn_counter % 2 == 0:
-            current_player = self.player2
+    def set_player_ids(self, first_player_id):
+        self.player1 = first_player_id
+        if self.player1 == 'X':
+            self.player2 = 'O'
         else:
-            current_player = self.player1
-        return current_player
+            self.player2 = 'X'
 
-    def get_turn_count(self):
+    def increment_turn_counter(self):
+        self.turn_counter += 1
+
+    def get_turn_counter(self):
         return self.turn_counter
+
+    def get_turn_player(self):
+        if self.turn_counter % 2 == 0:
+            return self.player2
+        else:
+            return self.player1
+
+    def get_player1_id(self):
+        player1_id = self.player1
+        return player1_id
+
+    def get_player2_id(self):
+        player2_id = self.player2
+        return player2_id
 
     def is_valid_move(self, move):
         try:
@@ -64,9 +72,9 @@ class Tictactoe:
 
     def make_valid_move(self, move):
         self.cells[move.get_cell_chosen()] = move.get_player_id()
-        self.turn_counter += 1
 
     def has_won(self, player_id):
+        self.turn_counter += 1
         return self._is_any_row_complete(player_id) or self._is_any_column_complete(player_id) or \
                 self._is_any_diagonal_complete(player_id)
 
