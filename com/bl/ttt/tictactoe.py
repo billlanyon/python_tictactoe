@@ -6,7 +6,7 @@ class Tictactoe:
         self.player1 = None
         self.player2 = None
         self.player_id = None
-        self.turn_counter = 0
+        self.turn_counter = 2
 
     def __str__(self):
         board = f"""
@@ -48,6 +48,10 @@ class Tictactoe:
     def get_player2_id(self):
         player2_id = self.player2
         return player2_id
+
+    def get_empty_cells(self):
+        empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
+        return empty_cell_indices
 
     def is_valid_move(self, move):
         try:
