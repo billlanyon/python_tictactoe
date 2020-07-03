@@ -7,30 +7,25 @@ player_tries_again = True
 get_next_move = True
 
 
-def get_game_start():
+def get_user_input(prompt, valid_input):
     while True:
         try:
-            new_game_input = input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ").upper()
-            if new_game_input is not None and (new_game_input == 'N' or new_game_input == 'Y'):
-                return new_game_input
+            i = input(prompt).upper()
+            if i is not None and i in valid_input:
+                return i
             else:
                 print('That was an invalid input: please try again.')
                 continue
         except (Exception, ValueError):
             break
+
+
+def get_game_start():
+    return get_user_input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ", ['Y', 'N'])
 
 
 def get_game_type():
-    while True:
-        try:
-            game_type_input = input("What kind of game will you play: enter 'h' for human or 'c' for computer: ").upper()
-            if game_type_input is not None and (game_type_input == 'H' or game_type_input == 'C'):
-                return game_type_input
-            else:
-                print('That was an invalid input: please try again.')
-                continue
-        except (Exception, ValueError):
-            break
+    return get_user_input("What kind of game will you play: enter 'h' for human or 'c' for computer: ", ['H', 'C'])
 
 
 def get_first_move(game):
