@@ -61,9 +61,6 @@ class Tictactoe:
         player2_id = self.player2
         return player2_id
 
-    def get_computer_move(self, move):
-        pass
-
     def get_empty_cells(self):
         empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
         return empty_cell_indices
@@ -83,12 +80,37 @@ class Tictactoe:
         print(self)
 
     def get_computer_status(self):
-        print(
-            f'CPID = {self.computer_player} | '
-            f'HPML = {self.player_move_log[self.human_player]} | '
-            f'CPML = {self.player_move_log[self.computer_player]} | '
-            f'UPC = {self.get_empty_cells()}'
-        )
+        if self.is_computer_game:
+            print(
+                f'CPID = {self.computer_player} | '
+                f'HPML = {self.player_move_log[self.human_player]} | '
+                f'CPML = {self.player_move_log[self.computer_player]} | '
+                f'UPC = {self.get_empty_cells()}'
+            )
+        else:
+            print("It's just us humans playing")
+
+    def get_computer_move(self):
+        # Move1: Human plays a corner cell first (0, 2, 6, 8), computer plays the centre;
+        #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
+        #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
+        # Move2: computer block or creates fork
+        while True:
+            if self.get_turn_counter() == 2:
+                if 4 in self.get_empty_cells():
+                    computer_cell = 4
+                else:
+                    computer_cell = 0
+            # elif game.get_turn_counter() == 4 or 6:
+            # win_cell_tuples = {(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (6, 4, 2)}
+            else:
+                computer_cell = randrange(9)
+            move = TictactoeMove(self.get_turn_player(), computer_cell)
+            if self.is_valid_move(move):
+                self.process_valid_move(move)
+            else:
+                continue
+            return f'The computer player {self.get_turn_player()} is going to play cell {computer_cell}.'
 
     def is_valid_move(self, move):
         try:

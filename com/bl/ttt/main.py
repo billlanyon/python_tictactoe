@@ -40,31 +40,6 @@ def get_first_move(game):
     return get_next_move
 
 
-def get_computer_move(game):
-    # Move1: Human plays a corner cell first (0, 2, 6, 8), computer plays the centre;
-    #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
-    #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
-    # Move2: computer block or creates fork
-    while True:
-        if game.get_turn_counter() == 2:
-            if 4 in game.get_empty_cells():
-                computer_cell = 4
-            else:
-                computer_cell = 0
-        # elif game.get_turn_counter() == 4 or 6:
-        # win_cell_tuples = {(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (6, 4, 2)}
-        else:
-            computer_cell = randrange(9)
-        move = TictactoeMove(game.get_turn_player(), computer_cell)
-        if game.is_valid_move(move):
-            game.process_valid_move(move)
-            print(f'The computer player {game.get_turn_player()} is going to play cell {computer_cell}.')
-            time.sleep(2)
-        else:
-            continue
-        return get_next_move
-
-
 def get_human_move(game):
     while True:
         human_cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
@@ -79,7 +54,7 @@ def get_human_move(game):
 
 def process_another_move(game):
     if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
-        get_computer_move(game)
+        game.get_computer_move()
     else:
         get_human_move(game)
     if game.has_won(game.get_turn_player()):
