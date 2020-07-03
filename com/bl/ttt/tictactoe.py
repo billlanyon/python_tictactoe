@@ -6,7 +6,8 @@ class Tictactoe:
         self.player1 = None
         self.player2 = None
         self.player_id = None
-        self.turn_counter = 2
+        self.turn_counter = 1
+        self.player_move_log = {}
 
     def __str__(self):
         board = f"""
@@ -21,6 +22,9 @@ class Tictactoe:
 
     def get_computer_game(self):
         return self.is_computer_game
+
+    def get_board_size(self):
+        pass
 
     def set_player_ids(self, first_player_id):
         self.player1 = first_player_id
@@ -53,6 +57,9 @@ class Tictactoe:
         empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
         return empty_cell_indices
 
+    def get_player_move_log(self):
+        return self.player_move_log
+
     def is_valid_move(self, move):
         try:
             if self._is_valid_player(move) and \
@@ -76,6 +83,7 @@ class Tictactoe:
 
     def make_valid_move(self, move):
         self.cells[move.get_cell_chosen()] = move.get_player_id()
+        self.player_move_log[self.get_turn_counter()] = move.get_player_id(), move.get_cell_chosen()
 
     def has_won(self, player_id):
         self.turn_counter += 1

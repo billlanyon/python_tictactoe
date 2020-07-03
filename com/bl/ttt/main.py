@@ -38,6 +38,7 @@ def get_first_move(game):
     move = TictactoeMove(first_player_id, int(cell))
     if game.is_valid_move(move):
         game.make_valid_move(move)
+        game.has_won(game.get_turn_player())
     else:
         print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
         return player_tries_again
@@ -46,15 +47,23 @@ def get_first_move(game):
 
 
 def get_computer_move(game):
-    # A. Human plays a corner cell first (0, 2, 6, 8), computer plays the centre.
-    # B. Human plays an edge cell first (1, 3, 5, 7), computer plays the centre.
-    # C. Human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
+    # Move1: Human plays a corner cell first (0, 2, 6, 8), computer plays the centre;
+    #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
+    #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
+    # Move2: computer block or creates fork
+
     while True:
-        print(f'Turn counter is {game.get_turn_counter()} at start of computer move')
-        if game.get_turn_counter == 2 and 4 in game.get_empty_cells():
-            computer_cell = 4
-        elif game.get_turn_counter == 2 and 4 not in game.get_empty_cells():
-            computer_cell = 0
+        print(f'Move Log: {game.get_player_move_log()}')
+        if game.get_turn_counter() == 2:
+            if 4 in game.get_empty_cells():
+                computer_cell = 4
+            else:
+                computer_cell = 0
+        elif game.get_turn_counter() == 4:
+            if 4 in game.get_empty_cells():
+                computer_cell = 4
+            else:
+                computer_cell = 0
         else:
             computer_cell = randrange(9)
         move = TictactoeMove(game.get_turn_player(), computer_cell)
@@ -80,7 +89,12 @@ def get_human_move(game):
 
 
 def process_another_move(game):
-    print(f'GP1 = {game.get_player1_id()} | GP2 = {game.get_player2_id()} | GTP = {game.get_turn_player()} | GTC = {game.get_turn_counter()} | Empty Cells = {game.get_empty_cells()}')
+    print(
+        f'GP1 = {game.get_player1_id()} | '
+        f'GP2 = {game.get_player2_id()} | '
+        f'GTP = {game.get_turn_player()} | '
+        f'GTC = {game.get_turn_counter()} | '
+        f'Empty Cells = {game.get_empty_cells()}')
     if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
         get_computer_move(game)
     else:
