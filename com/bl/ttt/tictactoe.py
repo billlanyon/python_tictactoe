@@ -1,3 +1,6 @@
+from random import randrange
+import time
+
 class Tictactoe:
 
     def __init__(self):
@@ -7,7 +10,7 @@ class Tictactoe:
         self.player2 = None
         self.player_id = None
         self.turn_counter = 1
-        self.player_move_log = {}
+        self.player_move_log = {'X': [], 'O': []}
 
     def __str__(self):
         board = f"""
@@ -53,12 +56,27 @@ class Tictactoe:
         player2_id = self.player2
         return player2_id
 
+    def get_computer_move(self, move):
+        pass
+
     def get_empty_cells(self):
         empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
         return empty_cell_indices
 
     def get_player_move_log(self):
         return self.player_move_log
+
+    def get_game_status(self):
+        self.turn_counter += 1
+        print(
+            f'GP1 = {self.get_player1_id()} | '
+            f'GP2 = {self.get_player2_id()} | '
+            f'GTP = {self.get_turn_player()} | '
+            f'GTC = {self.get_turn_counter()} | '
+            f'UOC = {self.get_empty_cells()} | '
+            f'PML = {self.get_player_move_log()}'
+        )
+        print(self)
 
     def is_valid_move(self, move):
         try:
@@ -72,6 +90,13 @@ class Tictactoe:
         except (ValueError, TypeError):
             return False
 
+    def process_valid_move(self, move):
+        self.cells[move.get_cell_chosen()] = move.get_player_id()
+        if move.get_player_id() == 'X':
+            self.player_move_log['X'].append(move.get_cell_chosen())
+        else:
+            self.player_move_log['O'].append(move.get_cell_chosen())
+
     def _is_valid_player(self, move):
         return move.get_player_id() == 'X' or move.get_player_id() == 'O'
 
@@ -81,12 +106,7 @@ class Tictactoe:
     def _is_cell_empty(self, move):
         return self.cells[move.get_cell_chosen()] == ' '
 
-    def make_valid_move(self, move):
-        self.cells[move.get_cell_chosen()] = move.get_player_id()
-        self.player_move_log[self.get_turn_counter()] = move.get_player_id(), move.get_cell_chosen()
-
     def has_won(self, player_id):
-        self.turn_counter += 1
         return self._is_any_row_complete(player_id) or self._is_any_column_complete(player_id) or \
                 self._is_any_diagonal_complete(player_id)
 
