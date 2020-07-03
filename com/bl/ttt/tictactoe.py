@@ -8,6 +8,8 @@ class Tictactoe:
         self.is_computer_game = False
         self.player1 = None
         self.player2 = None
+        self.human_player = None
+        self.computer_player = None
         self.player_id = None
         self.turn_counter = 1
         self.player_move_log = {'X': [], 'O': []}
@@ -35,6 +37,9 @@ class Tictactoe:
             self.player2 = 'O'
         else:
             self.player2 = 'X'
+        if self.is_computer_game is True:
+            self.computer_player = self.player2
+            self.human_player = self.player1
 
     def increment_turn_counter(self):
         self.turn_counter += 1
@@ -73,10 +78,17 @@ class Tictactoe:
             f'GP2 = {self.get_player2_id()} | '
             f'GTP = {self.get_turn_player()} | '
             f'GTC = {self.get_turn_counter()} | '
-            f'UOC = {self.get_empty_cells()} | '
             f'PML = {self.get_player_move_log()}'
         )
         print(self)
+
+    def get_computer_status(self):
+        print(
+            f'CPID = {self.computer_player} | '
+            f'HPML = {self.player_move_log[self.human_player]} | '
+            f'CPML = {self.player_move_log[self.computer_player]} | '
+            f'UPC = {self.get_empty_cells()}'
+        )
 
     def is_valid_move(self, move):
         try:
