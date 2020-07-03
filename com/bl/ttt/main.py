@@ -51,15 +51,9 @@ def get_computer_move(game):
     #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
     #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
     # Move2: computer block or creates fork
-
     while True:
         print(f'Move Log: {game.get_player_move_log()}')
         if game.get_turn_counter() == 2:
-            if 4 in game.get_empty_cells():
-                computer_cell = 4
-            else:
-                computer_cell = 0
-        elif game.get_turn_counter() == 4:
             if 4 in game.get_empty_cells():
                 computer_cell = 4
             else:
