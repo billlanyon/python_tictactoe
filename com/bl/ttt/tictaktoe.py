@@ -20,14 +20,6 @@ def main():
         display_outcome(game)
 
 
-def display_outcome(game):
-    winner = game.get_winner_player_id()
-    if not winner:
-        print('Game Over - DRAW\n\n')
-    else:
-        print(f'Game Over - Player {game.get_winner_player_id()} WINS.\n\n')
-
-
 def play_another_game():
     return get_input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ",
                      valid_responses=['Y', 'N'])
@@ -68,6 +60,14 @@ def process_another_move(game):
         game.make_valid_move(move)
     else:
         print(f'Sorry, that is not a valid move for Player {current_player_id}, please try again.')
+
+
+def display_outcome(game):
+    winner = game.get_winner_player_id()
+    if not winner:
+        print('Game Over - DRAW\n\n')
+    else:
+        print(f'Game Over - Player {game.get_winner_player_id()} WINS.\n\n')
 
 
 if __name__ == "__main__":
