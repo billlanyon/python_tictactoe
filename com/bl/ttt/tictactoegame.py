@@ -2,7 +2,7 @@ from random import randrange
 
 
 class TictactoeGame:
-    # This class enables an main script to play the game of TicTacToe.
+    # This class enables a main script to play the game of TicTacToe.
     # A human player can chose to play another human or a built in computer player.
     # Player 'X' always plays first.
     # A computer player is always 'O'.
@@ -66,6 +66,28 @@ class TictactoeGame:
         return self._is_computer_opponent and \
                self.get_turn_player_id() == 'O'
 
+    def _make_computer_move(self):
+        while True:
+            computer_cell = randrange(len(self._cells) + 1)
+            move = TictactoeMove(self.get_turn_player_id(), computer_cell)
+            if self.is_valid_move(move):
+                self.make_valid_move(move)
+                break
+
+    def is_game_over(self):
+        is_a_draw = ' ' not in self._cells
+        player_id_1_has_won = self._has_won(self._player_ids[0])
+        player_id_2_has_won = self._has_won(self._player_ids[1])
+
+        return is_a_draw or \
+               player_id_1_has_won or \
+               player_id_2_has_won
+
+    def get_winner_player_id(self):
+        for p in self._player_ids:
+            if self._has_won(p):
+                return p
+
     def _has_won(self, player_id):
         return self._is_any_row_complete(player_id) or \
                self._is_any_column_complete(player_id) or \
@@ -84,28 +106,6 @@ class TictactoeGame:
     def _is_any_diagonal_complete(self, player_id):
         return self._cells[0] == self._cells[4] == self._cells[8] == player_id or \
                 self._cells[6] == self._cells[4] == self._cells[2] == player_id
-
-    def is_game_over(self):
-        is_a_draw = ' ' not in self._cells
-        player_id_1_has_won = self._has_won(self._player_ids[0])
-        player_id_2_has_won = self._has_won(self._player_ids[1])
-
-        return is_a_draw or \
-               player_id_1_has_won or \
-               player_id_2_has_won
-
-    def get_winner_player_id(self):
-        for p in self._player_ids:
-            if self._has_won(p):
-                return p
-
-    def _make_computer_move(self):
-        while True:
-            computer_cell = randrange(len(self._cells) + 1)
-            move = TictactoeMove(self.get_turn_player_id(), computer_cell)
-            if self.is_valid_move(move):
-                self.make_valid_move(move)
-                break
 
 
 class TictactoeMove:
