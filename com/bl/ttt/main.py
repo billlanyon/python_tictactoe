@@ -54,6 +54,7 @@ def get_human_move(game):
 
 def process_another_move(game):
     if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
+        time.sleep(2)
         game.get_computer_move()
     else:
         get_human_move(game)

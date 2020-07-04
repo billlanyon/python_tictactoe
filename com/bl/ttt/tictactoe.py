@@ -110,7 +110,7 @@ class Tictactoe:
                 self.process_valid_move(move)
             else:
                 continue
-            return f'The computer player {self.get_turn_player()} is going to play cell {computer_cell}.'
+            return True
 
     def is_valid_move(self, move):
         try:
