@@ -1,5 +1,5 @@
 # Tests for the TictactoeMove class
-from com.bl.ttt.tictactoe import TictactoeMove
+from com.bl.ttt.tictactoegame import TictactoeMove
 
 
 def test_01_class_tictactoemove_instantiates_with_player_id_x():

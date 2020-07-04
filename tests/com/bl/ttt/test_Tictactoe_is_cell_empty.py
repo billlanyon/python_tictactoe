@@ -1,9 +1,9 @@
-from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+from com.bl.ttt.tictactoegame import TictactoeGame, TictactoeMove
 
 
 def test_01_is_cell_empty_identifies_empty_cell():
-    g = Tictactoe()
-    g.cells = ['X', 'X', ' ',
+    g = TictactoeGame()
+    g._cells = ['X', 'X', ' ',
                ' ', ' ', ' ',
                ' ', ' ', ' ']
     m = TictactoeMove('O', 2)
@@ -11,8 +11,8 @@ def test_01_is_cell_empty_identifies_empty_cell():
 
 
 def test_02_is_cell_empty_identifies_empty_cell():
-    g = Tictactoe()
-    g.cells = ['X', 'X', ' ',
+    g = TictactoeGame()
+    g._cells = ['X', 'X', ' ',
                ' ', ' ', ' ',
                ' ', ' ', ' ']
     m = TictactoeMove('O', 7)
@@ -20,8 +20,8 @@ def test_02_is_cell_empty_identifies_empty_cell():
 
 
 def test_03_is_cell_empty_identifies_occupied_cell():
-    g = Tictactoe()
-    g.cells = ['X', 'X', ' ',
+    g = TictactoeGame()
+    g._cells = ['X', 'X', ' ',
                ' ', ' ', ' ',
                ' ', ' ', ' ']
     m = TictactoeMove('O', 1)
@@ -29,8 +29,8 @@ def test_03_is_cell_empty_identifies_occupied_cell():
 
 
 def test_04_is_cell_empty_identifies_empty_string_cell():
-    g = Tictactoe()
-    g.cells = ['X', 'X', ' ',
+    g = TictactoeGame()
+    g._cells = ['X', 'X', ' ',
                ' ', '', ' ',
                ' ', ' ', ' ']
     m = TictactoeMove('O', 4)
