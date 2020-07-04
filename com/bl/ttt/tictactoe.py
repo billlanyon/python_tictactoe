@@ -1,6 +1,9 @@
 from random import randrange
 import time
 
+win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
+                  {6, 4, 2}]
+
 class Tictactoe:
 
     def __init__(self):
@@ -10,7 +13,6 @@ class Tictactoe:
         self.player2 = None
         self.human_player = None
         self.computer_player = None
-        self.player_id = None
         self.turn_counter = 1
         self.player_move_log = {'X': [], 'O': []}
 
@@ -53,6 +55,12 @@ class Tictactoe:
         else:
             return self.player1
 
+    def get_previous_turn_player(self):
+        if self.get_turn_player() == self.player1:
+            return self.player2
+        else:
+            return self.player1
+
     def get_player1_id(self):
         player1_id = self.player1
         return player1_id
@@ -69,7 +77,6 @@ class Tictactoe:
         return self.player_move_log
 
     def get_game_status(self):
-        self.turn_counter += 1
         print(
             f'GP1 = {self.get_player1_id()} | '
             f'GP2 = {self.get_player2_id()} | '
@@ -103,18 +110,21 @@ class Tictactoe:
                 else:
                     computer_cell = 0
             elif self.get_turn_counter() == 4:
-                win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
-                                   {6, 4, 2}]
                 human_player_move_set = set(self.player_move_log[self.human_player])
-                print(f'HPMS = {human_player_move_set}')
-                risk_list = []
-                for win in win_cell_tuples:
-                    if human_player_move_set.issubset(win):
-                        risk_list.append(win)
-                        computer_cell_set = risk_list[0].difference(human_player_move_set)
+                loss_list = []
+                for loss in win_cell_tuples:
+                    if human_player_move_set.issubset(loss):
+                        loss_list.append(loss)
+                        computer_cell_set = loss_list[0].difference(human_player_move_set)
                         computer_cell = computer_cell_set.pop()
-                print(f'RL1 = {risk_list}')
-                print(f'CC1 = {computer_cell}')
+            elif self.get_turn_counter() == 6:
+                computer_player_move_set = set(self.player_move_log[self.computer_player])
+                win_list = []
+                for win in win_cell_tuples:
+                    if computer_player_move_set.issubset(win):
+                        win_list.append(win)
+                        computer_cell_set = win_list[0].difference(computer_player_move_set)
+                        computer_cell = computer_cell_set.pop()
             else:
                 computer_cell = randrange(9)
             move = TictactoeMove(self.get_turn_player(), computer_cell)
@@ -129,10 +139,10 @@ class Tictactoe:
             if self._is_valid_player(move) and \
                self._is_cell_in_range(move) and \
                self._is_cell_empty(move):
+                self.turn_counter += 1
                 return True
             else:
                 return False
-
         except (ValueError, TypeError):
             return False
 
