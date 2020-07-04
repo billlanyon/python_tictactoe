@@ -95,14 +95,26 @@ class Tictactoe:
         #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
         #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
         # Move2: computer block or creates fork
+        computer_cell = None
         while True:
             if self.get_turn_counter() == 2:
                 if 4 in self.get_empty_cells():
                     computer_cell = 4
                 else:
                     computer_cell = 0
-            # elif game.get_turn_counter() == 4 or 6:
-            # win_cell_tuples = {(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (6, 4, 2)}
+            elif self.get_turn_counter() == 4:
+                win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
+                                   {6, 4, 2}]
+                human_player_move_set = set(self.player_move_log[self.human_player])
+                print(f'HPMS = {human_player_move_set}')
+                risk_list = []
+                for win in win_cell_tuples:
+                    if human_player_move_set.issubset(win):
+                        risk_list.append(win)
+                        computer_cell_set = risk_list[0].difference(human_player_move_set)
+                        computer_cell = computer_cell_set.pop()
+                print(f'RL1 = {risk_list}')
+                print(f'CC1 = {computer_cell}')
             else:
                 computer_cell = randrange(9)
             move = TictactoeMove(self.get_turn_player(), computer_cell)
