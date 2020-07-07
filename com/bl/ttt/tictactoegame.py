@@ -68,11 +68,16 @@ class TictactoeGame:
 
     def _make_computer_move(self):
         while True:
-            computer_cell = randrange(len(self._cells) + 1)
-            move = TictactoeMove(self.get_turn_player_id(), computer_cell)
-            if self.is_valid_move(move):
-                self.make_valid_move(move)
+            computer_move = self._get_computer_move()
+            if self.is_valid_move(computer_move):
+                self.make_valid_move(computer_move)
                 break
+
+    def _get_computer_move(self):
+        return TictactoeMove('O',
+                             randrange(
+                                 len(self._cells) + 1
+                             ))
 
     def is_game_over(self):
         is_a_draw = ' ' not in self._cells
