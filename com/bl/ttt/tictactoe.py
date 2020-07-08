@@ -1,14 +1,14 @@
 from random import randrange
-import time
 
 win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
                   {6, 4, 2}]
 
+
 class Tictactoe:
 
-    def __init__(self):
+    def __init__(self, is_computer_game=False):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-        self.is_computer_game = False
+        self.is_computer_game = is_computer_game
         self.player1 = None
         self.player2 = None
         self.human_player = None
@@ -24,8 +24,13 @@ class Tictactoe:
     """
         return board
 
-    def set_computer_game(self):
-        self.is_computer_game = True
+    def initial_coordinates(self):
+        coordinates = """The board coordinates are:
+    | 0 | 1 | 2 |
+    | 3 | 4 | 5 |
+    | 6 | 7 | 8 |
+    """
+        return coordinates
 
     def get_computer_game(self):
         return self.is_computer_game
@@ -98,10 +103,6 @@ class Tictactoe:
             print("It's just us humans playing")
 
     def get_computer_move(self):
-        # Move1: Human plays a corner cell first (0, 2, 6, 8), computer plays the centre;
-        #        human plays an edge cell first (1, 3, 5, 7), computer plays the centre;
-        #        human plays the centre cell first (4), computer plays corner (0, 2, 6, 8).
-        # Move2: computer block or creates fork
         computer_cell = None
         while True:
             if self.get_turn_counter() == 2:
