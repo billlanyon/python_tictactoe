@@ -14,23 +14,12 @@ def main():
 
         if get_game_type() == 'C':
             game = Tictactoe(is_computer_game=True)
-            print('OK, you will play first and the computer will play second.')
+            print('OK, you will play first as Player X, and the computer will play second.')
         else:
             game = Tictactoe()
+            print('Player X will play first')
         print(game.initial_coordinates())
         process_player_turns(game)
-
-
-def get_first_move(game):
-    first_player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    move = TictactoeMove(first_player_id, int(cell))
-    if game.is_valid_move(move):
-        game.process_valid_move(move)
-    else:
-        print(f'Sorry, that is not a valid move for Player {move.player_id}, please try again.')
-        return player_tries_again
-    game.set_player_ids(first_player_id)
-    return get_next_move
 
 
 def get_user_input(prompt, valid_input):
@@ -56,8 +45,8 @@ def get_game_type():
 
 def get_human_move(game):
     while True:
-        human_cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
-        move = TictactoeMove(game.get_turn_player(), int(human_cell))
+        cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
+        move = TictactoeMove(game.get_turn_player(), int(cell))
         if game.is_valid_move(move):
             game.process_valid_move(move)
         else:
@@ -85,9 +74,8 @@ def process_another_move(game):
 
 
 def process_player_turns(game):
-    get_first_move(game)
-    game.get_game_status()
-    game.get_computer_status()
+    # game.get_game_status()
+    # game.get_computer_status()
     while process_another_move(game):
         game.get_game_status()
         game.get_computer_status()

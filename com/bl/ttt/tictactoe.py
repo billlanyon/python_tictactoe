@@ -9,10 +9,11 @@ class Tictactoe:
     def __init__(self, is_computer_game=False):
         self.cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
         self.is_computer_game = is_computer_game
-        self.player1 = None
-        self.player2 = None
-        self.human_player = None
-        self.computer_player = None
+        self.players = ['X', 'O']
+        self.player1 = self.players[0]
+        self.player2 = self.players[1]
+        self.human_player = self.player1
+        self.computer_player = self.player2
         self.turn_counter = 1
         self.player_move_log = {'X': [], 'O': []}
 
@@ -24,7 +25,8 @@ class Tictactoe:
     """
         return board
 
-    def initial_coordinates(self):
+    @staticmethod
+    def initial_coordinates():
         coordinates = """The board coordinates are:
     | 0 | 1 | 2 |
     | 3 | 4 | 5 |
@@ -37,16 +39,6 @@ class Tictactoe:
 
     def get_board_size(self):
         pass
-
-    def set_player_ids(self, first_player_id):
-        self.player1 = first_player_id
-        if self.player1 == 'X':
-            self.player2 = 'O'
-        else:
-            self.player2 = 'X'
-        if self.is_computer_game is True:
-            self.computer_player = self.player2
-            self.human_player = self.player1
 
     def increment_turn_counter(self):
         self.turn_counter += 1
@@ -83,24 +75,13 @@ class Tictactoe:
 
     def get_game_status(self):
         print(
-            f'GP1 = {self.get_player1_id()} | '
-            f'GP2 = {self.get_player2_id()} | '
-            f'GTP = {self.get_turn_player()} | '
-            f'GTC = {self.get_turn_counter()} | '
+            f'TurnCounter = {self.get_turn_counter()} | '
             f'PML = {self.get_player_move_log()}'
         )
         print(self)
 
     def get_computer_status(self):
-        if self.is_computer_game:
-            print(
-                f'CPID = {self.computer_player} | '
-                f'HPML = {self.player_move_log[self.human_player]} | '
-                f'CPML = {self.player_move_log[self.computer_player]} | '
-                f'UPC = {self.get_empty_cells()}'
-            )
-        else:
-            print("It's just us humans playing")
+        print(f'UnPlayedCells = {self.get_empty_cells()}')
 
     def get_computer_move(self):
         computer_cell = None
