@@ -1,4 +1,6 @@
 from random import randrange
+import time
+
 
 win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
                   {6, 4, 2}]
@@ -37,12 +39,6 @@ class Tictactoe:
     def get_computer_game(self):
         return self.is_computer_game
 
-    def get_board_size(self):
-        pass
-
-    def increment_turn_counter(self):
-        self.turn_counter += 1
-
     def get_turn_counter(self):
         return self.turn_counter
 
@@ -58,14 +54,6 @@ class Tictactoe:
         else:
             return self.player1
 
-    def get_player1_id(self):
-        player1_id = self.player1
-        return player1_id
-
-    def get_player2_id(self):
-        player2_id = self.player2
-        return player2_id
-
     def get_empty_cells(self):
         empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
         return empty_cell_indices
@@ -76,12 +64,9 @@ class Tictactoe:
     def get_game_status(self):
         print(
             f'TurnCounter = {self.get_turn_counter()} | '
-            f'PML = {self.get_player_move_log()}'
+            f'PlayerMoveLog = {self.get_player_move_log()}'
         )
         print(self)
-
-    def get_computer_status(self):
-        print(f'UnPlayedCells = {self.get_empty_cells()}')
 
     def get_computer_move(self):
         computer_cell = None
@@ -99,19 +84,12 @@ class Tictactoe:
                         loss_list.append(loss)
                         computer_cell_set = loss_list[0].difference(human_player_move_set)
                         computer_cell = computer_cell_set.pop()
-            elif self.get_turn_counter() == 6:
-                computer_player_move_set = set(self.player_move_log[self.computer_player])
-                win_list = []
-                for win in win_cell_tuples:
-                    if computer_player_move_set.issubset(win):
-                        win_list.append(win)
-                        computer_cell_set = win_list[0].difference(computer_player_move_set)
-                        computer_cell = computer_cell_set.pop()
             else:
                 computer_cell = randrange(9)
             move = TictactoeMove(self.get_turn_player(), computer_cell)
             if self.is_valid_move(move):
                 self.process_valid_move(move)
+                time.sleep(2)
             else:
                 continue
             return True

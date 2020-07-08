@@ -1,5 +1,4 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-import time
 
 game_over = False
 player_tries_again = True
@@ -57,7 +56,6 @@ def get_human_move(game):
 
 def process_another_move(game):
     if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
-        time.sleep(2)
         game.get_computer_move()
     else:
         get_human_move(game)
@@ -74,11 +72,8 @@ def process_another_move(game):
 
 
 def process_player_turns(game):
-    # game.get_game_status()
-    # game.get_computer_status()
     while process_another_move(game):
         game.get_game_status()
-        game.get_computer_status()
 
 
 if __name__ == "__main__":
