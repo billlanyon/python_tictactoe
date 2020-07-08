@@ -1,3 +1,4 @@
+import pytest
 from unittest import mock
 from com.bl.ttt.main import main
 from com.bl.ttt.tictactoe import Tictactoe
@@ -15,4 +16,3 @@ def test_02_main_main_starts_game():
     game = Tictactoe()
     with mock.patch('builtins.input', side_effect=['y']):
         assert game.cells == [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-

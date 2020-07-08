@@ -16,7 +16,7 @@ def main():
             print('OK, you will play first as Player X, and the computer will play second.')
         else:
             game = Tictactoe()
-            print('Player X will play first')
+            print('Player X will play first.')
         print(game.initial_coordinates())
         process_player_turns(game)
 

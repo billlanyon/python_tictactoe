@@ -2,10 +2,6 @@ from random import randrange
 import time
 
 
-win_cell_tuples = [{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8},
-                  {6, 4, 2}]
-
-
 class Tictactoe:
 
     def __init__(self, is_computer_game=False):
@@ -62,30 +58,15 @@ class Tictactoe:
         return self.player_move_log
 
     def get_game_status(self):
+        print(self)
         print(
             f'TurnCounter = {self.get_turn_counter()} | '
             f'PlayerMoveLog = {self.get_player_move_log()}'
         )
-        print(self)
 
     def get_computer_move(self):
-        computer_cell = None
         while True:
-            if self.get_turn_counter() == 2:
-                if 4 in self.get_empty_cells():
-                    computer_cell = 4
-                else:
-                    computer_cell = 0
-            elif self.get_turn_counter() == 4:
-                human_player_move_set = set(self.player_move_log[self.human_player])
-                loss_list = []
-                for loss in win_cell_tuples:
-                    if human_player_move_set.issubset(loss):
-                        loss_list.append(loss)
-                        computer_cell_set = loss_list[0].difference(human_player_move_set)
-                        computer_cell = computer_cell_set.pop()
-            else:
-                computer_cell = randrange(9)
+            computer_cell = randrange(9)
             move = TictactoeMove(self.get_turn_player(), computer_cell)
             if self.is_valid_move(move):
                 self.process_valid_move(move)
