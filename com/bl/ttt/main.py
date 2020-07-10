@@ -59,13 +59,9 @@ def process_another_move(game):
         game.get_computer_move()
     else:
         get_human_move(game)
-    if game.has_won('X') or game.has_won('O'):
+    if game.is_game_over():
         game.get_game_status()
-        print(f'Player {game.get_previous_turn_player()} has won.')
-        return game_over
-    elif game.is_draw():
-        game.get_game_status()
-        print(f'This game is over: it is a draw and neither player has won.')
+        print(game.inform_game_over())
         return game_over
     else:
         return get_next_move
