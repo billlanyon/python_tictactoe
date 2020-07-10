@@ -1,5 +1,4 @@
 from random import randrange
-import time
 
 
 class Tictactoe:
@@ -70,7 +69,6 @@ class Tictactoe:
             move = TictactoeMove(self.get_turn_player(), computer_cell)
             if self.is_valid_move(move):
                 self.process_valid_move(move)
-                time.sleep(2)
             else:
                 continue
             return True
@@ -80,7 +78,6 @@ class Tictactoe:
             if self._is_valid_player(move) and \
                self._is_cell_in_range(move) and \
                self._is_cell_empty(move):
-                self.turn_counter += 1
                 return True
             else:
                 return False
@@ -93,6 +90,21 @@ class Tictactoe:
             self.player_move_log['X'].append(move.get_cell_chosen())
         else:
             self.player_move_log['O'].append(move.get_cell_chosen())
+
+        self.turn_counter += 1
+
+        if self.is_computer_game and \
+           self.is_computer_turn() and not \
+           self.is_game_over():
+            self.get_computer_move()
+
+    def is_computer_turn(self):
+        return self.get_turn_player() == 'O'
+
+    def is_game_over(self):
+        return self.has_won('X') or \
+               self.has_won('Y') or \
+               self.is_draw
 
     def _is_valid_player(self, move):
         return move.get_player_id() == 'X' or move.get_player_id() == 'O'
