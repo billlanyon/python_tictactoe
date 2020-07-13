@@ -13,7 +13,7 @@ def main():
 
         if get_game_type() == 'C':
             game = Tictactoe(is_computer_game=True)
-            print('OK, you will play first as Player X, and the computer will play second.')
+            print('OK, you will play first as Player X, and the computer will play second as Player O.')
         else:
             game = Tictactoe()
             print('Player X will play first.')
@@ -42,6 +42,11 @@ def get_game_type():
     return get_user_input("What kind of game will you play: enter 'h' for human or 'c' for computer: ", ['H', 'C'])
 
 
+def process_player_turns(game):
+    while process_another_move(game):
+        game.get_game_status()
+
+
 def process_another_move(game):
     while True:
         cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
@@ -62,11 +67,6 @@ def process_another_move(game):
                 game.get_game_status()
                 return get_next_move
         return get_next_move
-
-
-def process_player_turns(game):
-    while process_another_move(game):
-        game.get_game_status()
 
 
 if __name__ == "__main__":

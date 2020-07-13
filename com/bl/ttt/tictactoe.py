@@ -49,10 +49,6 @@ class Tictactoe:
         else:
             return self.player1
 
-    def get_empty_cells(self):
-        empty_cell_indices = [i for i, x in enumerate(self.cells) if x == ' ']
-        return empty_cell_indices
-
     def get_player_move_log(self):
         return self.player_move_log
 
