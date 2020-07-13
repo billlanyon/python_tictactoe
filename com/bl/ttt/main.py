@@ -42,7 +42,7 @@ def get_game_type():
     return get_user_input("What kind of game will you play: enter 'h' for human or 'c' for computer: ", ['H', 'C'])
 
 
-def get_human_move(game):
+def process_another_move(game):
     while True:
         cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
         move = TictactoeMove(game.get_turn_player(), int(cell))
@@ -51,19 +51,16 @@ def get_human_move(game):
         else:
             print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
             continue
-        return get_next_move
 
-
-def process_another_move(game):
-    if game.get_computer_game() is True and game.get_turn_counter() % 2 == 0:
-        game.get_computer_move()
-    else:
-        get_human_move(game)
-    if game.is_game_over():
-        game.get_game_status()
-        print(game.inform_game_over())
-        return game_over
-    else:
+        if game.is_game_over():
+            game.get_game_status()
+            print(game.inform_game_over())
+            return game_over
+        else:
+            if game.get_computer_game() and game.is_computer_turn():
+                game.get_computer_move()
+                game.get_game_status()
+                return get_next_move
         return get_next_move
 
 
