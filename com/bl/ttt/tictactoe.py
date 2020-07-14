@@ -49,15 +49,14 @@ class Tictactoe:
         else:
             return self.player1
 
-    def get_player_move_log(self):
-        return self.player_move_log
+    def get_player_move_log(self, player_id='both'):
+        if player_id == 'both':
+            return f"X played cells {self.player_move_log.get('X')} and O played cells {self.player_move_log.get('O')}."
+        else:
+            return f'{player_id} played cells {self.player_move_log.get(player_id)}.'
 
     def get_game_status(self):
         print(self)
-        print(
-            f'TurnCounter = {self.get_turn_counter()} | '
-            f'PlayerMoveLog = {self.get_player_move_log()}'
-        )
 
     def get_computer_move(self):
         while True:
