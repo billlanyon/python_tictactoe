@@ -5,47 +5,31 @@ from com.bl.ttt.tictactoe import Tictactoe
 
 def test_01_main_process_another_move_valid_move():
     g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['X 0']):
+    g.cells = ['X', 'O', 'X',
+               'X', 'O', 'X',
+               'O', ' ', 'O']
+    g.player1 = 'O'
+    g.player2 = 'X'
+    g.turn_counter = 10
+    with mock.patch('builtins.input', side_effect=[7]):
         process_another_move(g)
-        assert g.cells[0] == 'X'
+        assert g.cells == ['X', 'O', 'X',
+                           'X', 'O', 'X',
+                           'O', 'X', 'O']
+        assert g.is_draw() is True
 
 
-def test_02_main_process_another_move_valid_move():
+def test_02_main_process_another_move_valid_move_has_won():
     g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['o 8']):
+    g.cells = ['X', 'O', 'X',
+               'X', 'O', 'X',
+               ' ', 'O', 'O']
+    g.player1 = 'O'
+    g.player2 = 'X'
+    g.turn_counter = 10
+    with mock.patch('builtins.input', side_effect=[6]):
         process_another_move(g)
-        assert not g.cells[8] == 'O'
-
-
-def test_03_main_process_another_move_invalid_player():
-    g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['Q 8']):
-        process_another_move(g)
-        assert g.cells[8] == ' '
-
-
-def test_04_main_process_another_move_invalid_cell():
-    g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['Q 9']):
-        process_another_move(g)
-        assert g.cells[8] == ' '
-
-
-def test_05_main_process_another_move_win():
-    g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['O 4']):
-        g.cells = ['X', ' ', 'O',
-                   ' ', ' ', ' ',
-                   'O', ' ', 'X']
-        process_another_move(g)
-        assert g.has_won('O')
-
-
-def test_06_main_process_another_move_draw():
-    g = Tictactoe()
-    with mock.patch('builtins.input', side_effect=['X 1']):
-        g.cells = ['X', ' ', 'O',
-                   'O', 'O', 'X',
-                   'X', 'X', 'O']
-        process_another_move(g)
-        assert g.is_draw()
+        assert g.cells == ['X', 'O', 'X',
+                           'X', 'O', 'X',
+                           'X', 'O', 'O']
+        assert g.has_won('X')

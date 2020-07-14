@@ -5,37 +5,28 @@ player_tries_again = True
 get_next_move = True
 
 
-def process_another_move(game):
-    player_id, cell = input('Please enter player X or O, a space, and then a cell from 0 to 8: ').split(' ')
-    move = TictactoeMove(player_id, int(cell))
-    if game.is_valid_move(move):
-        game.make_valid_move(move)
-    else:
-        print(f'Sorry, that is not a valid move for Player {player_id}, please try again.')
-        return player_tries_again
-    if game.has_won(player_id):
-        print(game)
-        print(f'Player {player_id} has won.')
-        return game_over
-    elif game.is_draw():
-        print(game)
-        print(f'This game is over: it is a draw and neither player has won.')
-        return game_over
-    else:
-        return get_next_move
+def main():
+    while True:
+        if get_game_start() != 'Y':
+            print('Thanks for playing and goodbye.')
+            return game_over
+
+        if get_game_type() == 'C':
+            game = Tictactoe(is_computer_game=True)
+            print('OK, you will play first as Player X, and the computer will play second as Player O.')
+        else:
+            game = Tictactoe()
+            print('Player X will play first.')
+        print(game.initial_coordinates())
+        process_player_turns(game)
 
 
-def process_player_turns(game):
-    while process_another_move(game):
-        print(game)
-
-
-def get_game_start():
+def get_user_input(prompt, valid_input):
     while True:
         try:
-            new_game_input = input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ").upper()
-            if new_game_input is not None and (new_game_input == 'N' or new_game_input == 'Y'):
-                return new_game_input
+            i = input(prompt).upper()
+            if i is not None and i in valid_input:
+                return i
             else:
                 print('That was an invalid input: please try again.')
                 continue
@@ -43,19 +34,39 @@ def get_game_start():
             break
 
 
-def main():
-    while True:
-        if get_game_start() != 'Y':
-            print('Thanks for playing and goodbye.')
-            return game_over
-        game = Tictactoe()
-        print("""The board coordinates are:
+def get_game_start():
+    return get_user_input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ", ['Y', 'N'])
 
-    | 0 | 1 | 2 |
-    | 3 | 4 | 5 |
-    | 6 | 7 | 8 |
-    """)
-        process_player_turns(game)
+
+def get_game_type():
+    return get_user_input("What kind of game will you play: enter 'h' for human or 'c' for computer: ", ['H', 'C'])
+
+
+def process_player_turns(game):
+    while process_another_move(game):
+        game.get_game_status()
+
+
+def process_another_move(game):
+    while True:
+        cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
+        move = TictactoeMove(game.get_turn_player(), int(cell))
+        if game.is_valid_move(move):
+            game.process_valid_move(move)
+        else:
+            print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
+            continue
+
+        if game.is_game_over():
+            game.get_game_status()
+            print(game.inform_game_over())
+            return game_over
+        else:
+            if game.get_computer_game() and game.is_computer_turn():
+                game.get_computer_move()
+                game.get_game_status()
+                return get_next_move
+        return get_next_move
 
 
 if __name__ == "__main__":

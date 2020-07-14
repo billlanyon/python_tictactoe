@@ -12,13 +12,17 @@ billlanyon@me.com
 1. Open a terminal session on your computer.
 2. Navigate to the downloaded TicTacToe folder your computer.
 3. Make the game executable by entering 'chmod +x main.py'
-4. Play the game by entering 'python3 main.py' and following the on screen instructions.
+4. Launch the game by entering 'python3 main.py' and following the on screen instructions.
+5. Start a game by entering 'y'.
+6. Select a game against a computer opponent by entering 'c', or 'h' to play against another human.
+7. A human player always plays first: they chose their player by entering X or O, a space, and then a cell from 0 to 8.
+   The following players then just enter a coordinate for each move.
 
 ### Principal classes
 Tictactoe, TictactoeMove
 
 ### Assumptions
-Players must enter accurate input in the form: player letter (X or O), then a space, and then a coordinate from 0 to 8.
+Players must enter accurate input as requested.
 
 ### External dependencies
 TBC
