@@ -56,11 +56,7 @@ class Tictactoe:
             o_move_log = list(self.player_move_log.get('O'))
             players_move_tuples = list(itertools.zip_longest(x_move_log, o_move_log))
             players_move_list = list(itertools.chain(*players_move_tuples))
-            if len(players_move_list) == 0:
-                return []
-            if players_move_list[-1] is None:
-                players_move_list.pop()
-            return players_move_list
+            return [move for move in players_move_list if(move is not None)]
         else:
             player_move_list = list(self.player_move_log.get(player_id))
             return player_move_list
