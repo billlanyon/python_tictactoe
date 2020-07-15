@@ -51,11 +51,22 @@ class Tictactoe:
 
     def get_player_move_log(self, player_id='both'):
         if player_id == 'both':
-            players_move_log = tuple(self.player_move_log.items())
-            return players_move_log
+            players_move_list = []
+            x_move_log = list(self.player_move_log.get('X'))
+            lx = len(x_move_log)
+            print(x_move_log)
+            o_move_log = list(self.player_move_log.get('O'))
+            lo = len(o_move_log)
+            print(o_move_log)
+            for i in range(max(lx, lo)):
+                if i < lx:
+                    players_move_list.append(x_move_log[i])
+                if i < lo:
+                    players_move_list.append(o_move_log[i])
+            return players_move_list
         else:
-            player_move_log = tuple(self.player_move_log.get(player_id))
-            return player_move_log
+            player_move_list = list(self.player_move_log.get(player_id))
+            return player_move_list
 
     def get_game_status(self):
         print(self)

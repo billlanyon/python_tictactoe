@@ -78,4 +78,4 @@ def test_07_process_valid_move_appends_coordinate_to_player_move_log():
                ' ', ' ', ' ']
     m = TictactoeMove('X', 0)
     g.process_valid_move(m)
-    assert g.get_player_move_log() == (('X', [0]), ('O', []))
+    assert g.get_player_move_log() == [0]
