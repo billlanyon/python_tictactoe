@@ -1,4 +1,5 @@
 from random import randrange
+import itertools
 
 
 class Tictactoe:
@@ -51,16 +52,14 @@ class Tictactoe:
 
     def get_player_move_log(self, player_id='both'):
         if player_id == 'both':
-            players_move_list = []
             x_move_log = list(self.player_move_log.get('X'))
-            lx = len(x_move_log)
             o_move_log = list(self.player_move_log.get('O'))
-            lo = len(o_move_log)
-            for i in range(max(lx, lo)):
-                if i < lx:
-                    players_move_list.append(x_move_log[i])
-                if i < lo:
-                    players_move_list.append(o_move_log[i])
+            players_move_tuples = list(itertools.zip_longest(x_move_log, o_move_log))
+            players_move_list = list(itertools.chain(*players_move_tuples))
+            if len(players_move_list) == 0:
+                return []
+            if players_move_list[-1] is None:
+                players_move_list.pop()
             return players_move_list
         else:
             player_move_list = list(self.player_move_log.get(player_id))
