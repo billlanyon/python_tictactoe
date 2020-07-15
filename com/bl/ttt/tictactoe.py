@@ -54,10 +54,8 @@ class Tictactoe:
             players_move_list = []
             x_move_log = list(self.player_move_log.get('X'))
             lx = len(x_move_log)
-            print(x_move_log)
             o_move_log = list(self.player_move_log.get('O'))
             lo = len(o_move_log)
-            print(o_move_log)
             for i in range(max(lx, lo)):
                 if i < lx:
                     players_move_list.append(x_move_log[i])
