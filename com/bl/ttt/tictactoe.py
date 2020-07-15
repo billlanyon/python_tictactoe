@@ -51,9 +51,11 @@ class Tictactoe:
 
     def get_player_move_log(self, player_id='both'):
         if player_id == 'both':
-            return f"X played cells {self.player_move_log.get('X')} and O played cells {self.player_move_log.get('O')}."
+            players_move_log = tuple(self.player_move_log.items())
+            return players_move_log
         else:
-            return f'{player_id} played cells {self.player_move_log.get(player_id)}.'
+            player_move_log = tuple(self.player_move_log.get(player_id))
+            return player_move_log
 
     def get_game_status(self):
         print(self)
