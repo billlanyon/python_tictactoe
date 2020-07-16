@@ -1,4 +1,4 @@
-from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+from com.bl.ttt.tictactoe import Tictactoe
 
 
 def test_01__str__identifies_empty_board_output():

@@ -1,4 +1,5 @@
 from random import randrange
+import itertools
 
 
 class Tictactoe:
@@ -49,15 +50,19 @@ class Tictactoe:
         else:
             return self.player1
 
-    def get_player_move_log(self):
-        return self.player_move_log
+    def get_player_move_log(self, player_id='both'):
+        if player_id == 'both':
+            x_move_log = list(self.player_move_log.get('X'))
+            o_move_log = list(self.player_move_log.get('O'))
+            players_move_tuples = list(itertools.zip_longest(x_move_log, o_move_log))
+            players_move_list = list(itertools.chain(*players_move_tuples))
+            return [move for move in players_move_list if(move is not None)]
+        else:
+            player_move_list = list(self.player_move_log.get(player_id))
+            return player_move_list
 
     def get_game_status(self):
         print(self)
-        print(
-            f'TurnCounter = {self.get_turn_counter()} | '
-            f'PlayerMoveLog = {self.get_player_move_log()}'
-        )
 
     def get_computer_move(self):
         while True:
