@@ -15,4 +15,4 @@ def test_02_main_main_starts_game():
     main()
     game = Tictactoe()
     with mock.patch('builtins.input', side_effect=['y']):
-        assert game.cells == [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+        assert game._cells == [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
