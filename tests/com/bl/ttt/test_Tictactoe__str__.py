@@ -12,7 +12,7 @@ def test_01__str__identifies_empty_board_output():
 
 def test_02__str__identifies_matching_board_output():
     g = Tictactoe()
-    g.cells = ['X', ' ', ' ', ' ', 'O', ' ', ' ', 'O', 'X']
+    g._cells = ['X', ' ', ' ', ' ', 'O', ' ', ' ', 'O', 'X']
     assert str(g) == """
     | X |   |   |
     |   | O |   |
