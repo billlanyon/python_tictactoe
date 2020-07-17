@@ -1,4 +1,7 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 game_over = False
 player_tries_again = True
@@ -44,6 +47,7 @@ def get_game_type():
 
 def process_player_turns(game):
     while process_another_move(game):
+        logging.debug(game.get_debug_information())
         game.get_game_status()
 
 
@@ -64,7 +68,6 @@ def process_another_move(game):
         else:
             if game.get_computer_game() and game.is_computer_turn():
                 game.get_computer_move()
-                game.get_game_status()
                 return get_next_move
         return get_next_move
 

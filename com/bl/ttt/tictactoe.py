@@ -64,6 +64,10 @@ class Tictactoe:
     def get_game_status(self):
         print(self)
 
+    def get_debug_information(self):
+        empty_cell_indices = [i for i, x in enumerate(self._cells) if x == ' ']
+        return f'{self.get_player_move_log()} played with {empty_cell_indices} available: '
+
     def get_computer_move(self):
         while True:
             computer_cell = randrange(9)
