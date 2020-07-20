@@ -1,7 +1,29 @@
+#!/usr/bin/env python3
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
+import argparse
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '-d',
+    help='Log debugging messages to the console.',
+    action="store_true", dest="log_debug"
+)
+parser.add_argument(
+    '-f',
+    help='Log ERROR messages to the file ttt.log',
+    action="store_true", dest="log_file"
+)
+args = parser.parse_args()
+if args.log_file:
+    logging.basicConfig(filename='ttt.log',
+                        filemode='w',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.DEBUG)
+if args.log_debug:
+    logging.basicConfig(level=logging.DEBUG)
+
 
 game_over = False
 player_tries_again = True
