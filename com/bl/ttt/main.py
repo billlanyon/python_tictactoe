@@ -1,36 +1,20 @@
 #!/usr/bin/env python3
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
-import argparse
 import logging
-
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    '-d',
-    help='Log debugging messages to the console.',
-    action="store_true", dest="log_debug"
-)
-parser.add_argument(
-    '-f',
-    help='Log ERROR messages to the file ttt.log',
-    action="store_true", dest="log_file"
-)
-args = parser.parse_args()
-if args.log_file:
-    logging.basicConfig(filename='ttt.log',
-                        filemode='w',
-                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                        datefmt='%H:%M:%S',
-                        level=logging.DEBUG)
-if args.log_debug:
-    logging.basicConfig(level=logging.DEBUG)
-
+import logging.config
 
 game_over = False
 player_tries_again = True
 get_next_move = True
+logger = logging.getLogger(__name__)
+
+
+def set_logging_from_config_file():
+    logging.config.fileConfig(fname='log.conf', disable_existing_loggers=False)
 
 
 def main():
+    set_logging_from_config_file()
     while True:
         if get_game_start() != 'Y':
             print('Thanks for playing and goodbye.')
@@ -69,7 +53,7 @@ def get_game_type():
 
 def process_player_turns(game):
     while process_another_move(game):
-        logging.debug(game.get_debug_information())
+        logger.debug(game.get_debug_information())
         game.get_game_status()
 
 

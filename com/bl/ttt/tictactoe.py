@@ -66,7 +66,7 @@ class Tictactoe:
 
     def get_debug_information(self):
         empty_cell_indices = [i for i, x in enumerate(self._cells) if x == ' ']
-        return f'{self.get_player_move_log()} played with {empty_cell_indices} available: '
+        return f'{self.get_player_move_log()} played with {empty_cell_indices} unplayed.'
 
     def get_computer_move(self):
         while True:

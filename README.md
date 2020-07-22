@@ -29,5 +29,5 @@ TBC
 
 ### Logging
 When launching the app from the command line:<br>
-Appending '-d' will enable the display of debug messages in the console .<br>
-Appending '-f' will enable the logging of debug messages to a file named 'ttt.log'.
+Appending '-d' enables the display of debug messages in the console.<br>
+Appending '-f' enables the logging of debug messages to a file named 'ttt.log'.
