@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def set_logging_from_config_file():
-    logging.config.fileConfig(fname='log.conf', disable_existing_loggers=False)
+    logging.config.fileConfig(fname='/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/log.conf', disable_existing_loggers=False)
 
 
 def main():
