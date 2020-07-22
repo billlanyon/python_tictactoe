@@ -2,6 +2,7 @@
 from com.bl.ttt.tictactoe import Tictactoe, TictactoeMove
 import logging
 import logging.config
+import os
 
 game_over = False
 player_tries_again = True
@@ -10,7 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 def set_logging_from_config_file():
-    logging.config.fileConfig(fname='/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/log.conf', disable_existing_loggers=False)
+    config_file = os.path.join(os.path.dirname(__file__), 'log.conf')
+    logging.config.fileConfig(fname=config_file, disable_existing_loggers=False)
 
 
 def main():
