@@ -1,0 +1,59 @@
+2020-07-23 17:52:44,193 - com.bl.ttt.main - ERROR - pytest: reading from stdin while output is captured!  Consider using `-s`.
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+  File "/opt/anaconda3/lib/python3.7/site-packages/_pytest/capture.py", line 700, in read
+    "pytest: reading from stdin while output is captured!  Consider using `-s`."
+OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+2020-07-23 17:52:44,213 - com.bl.ttt.main - ERROR - 
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1011, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1073, in _mock_call
+    result = next(effect)
+StopIteration
+2020-07-23 17:52:44,219 - com.bl.ttt.main - ERROR - 'NoneType' object has no attribute 'upper'
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+AttributeError: 'NoneType' object has no attribute 'upper'
+2020-07-23 17:52:44,224 - com.bl.ttt.main - ERROR - 
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1011, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1073, in _mock_call
+    result = next(effect)
+StopIteration
+2020-07-23 17:52:44,233 - com.bl.ttt.main - ERROR - 
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1011, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1073, in _mock_call
+    result = next(effect)
+StopIteration
+2020-07-23 17:52:44,242 - com.bl.ttt.main - ERROR - 
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1011, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.7/unittest/mock.py", line 1073, in _mock_call
+    result = next(effect)
+StopIteration
+2020-07-23 17:52:44,250 - com.bl.ttt.main - ERROR - 'NoneType' object has no attribute 'upper'
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 38, in get_user_input
+    i = input(prompt).upper()
+AttributeError: 'NoneType' object has no attribute 'upper'
+2020-07-23 17:52:44,254 - com.bl.ttt.tictactoe - DEBUG - X: 7
+2020-07-23 17:52:44,255 - com.bl.ttt.tictactoe - DEBUG - Game drawn
+2020-07-23 17:52:44,255 - com.bl.ttt.tictactoe - DEBUG - Played: [7]. Unplayed: [].
+2020-07-23 17:52:44,259 - com.bl.ttt.tictactoe - DEBUG - X: 6
+2020-07-23 17:52:44,260 - com.bl.ttt.tictactoe - DEBUG - Game won
+2020-07-23 17:52:44,260 - com.bl.ttt.tictactoe - DEBUG - Played: [6]. Unplayed: [].

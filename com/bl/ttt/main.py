@@ -41,7 +41,8 @@ def get_user_input(prompt, valid_input):
             else:
                 print('That was an invalid input: please try again.')
                 continue
-        except (Exception, ValueError):
+        except (Exception, ValueError) as e:
+            logger.error(e, exc_info=True)
             break
 
 
@@ -55,19 +56,21 @@ def get_game_type():
 
 def process_player_turns(game):
     while process_another_move(game):
-        logger.debug(game.get_debug_information())
         game.get_game_status()
 
 
 def process_another_move(game):
     while True:
-        cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
-        move = TictactoeMove(game.get_turn_player(), int(cell))
-        if game.is_valid_move(move):
-            game.process_valid_move(move)
-        else:
-            print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
-            continue
+        try:
+            cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
+            move = TictactoeMove(game.get_turn_player(), int(cell))
+            if game.is_valid_move(move):
+                game.process_valid_move(move)
+            else:
+                print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
+                continue
+        except ValueError as e:
+            logger.error(e, exc_info=True)
 
         if game.is_game_over():
             game.get_game_status()

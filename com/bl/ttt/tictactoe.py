@@ -1,4 +1,5 @@
 from random import randrange
+import logging
 import itertools
 
 
@@ -14,6 +15,7 @@ class Tictactoe:
         self._computer_player = self._player2
         self._turn_counter = 1
         self._player_move_log = {'X': [], 'O': []}
+        self._logger = logging.getLogger(__name__)
 
     def __str__(self):
         board = f"""
@@ -64,9 +66,9 @@ class Tictactoe:
     def get_game_status(self):
         print(self)
 
-    def get_debug_information(self):
+    def get_game_summary(self):
         empty_cell_indices = [i for i, x in enumerate(self._cells) if x == ' ']
-        return f'{self.get_player_move_log()} played with {empty_cell_indices} unplayed.'
+        return f'Played: {self.get_player_move_log()}. Unplayed: {empty_cell_indices}.'
 
     def get_computer_move(self):
         while True:
@@ -90,6 +92,7 @@ class Tictactoe:
             return False
 
     def process_valid_move(self, move):
+        self._logger.debug(f'{move.get_player_id()}: {move.get_cell_chosen()}')
         self._cells[move.get_cell_chosen()] = move.get_player_id()
         if move.get_player_id() == 'X':
             self._player_move_log['X'].append(move.get_cell_chosen())
@@ -113,8 +116,12 @@ class Tictactoe:
 
     def inform_game_over(self):
         if self.has_won(self.get_previous_turn_player()):
+            self._logger.debug('Game won')
+            self._logger.debug(self.get_game_summary())
             return f'Player {self.get_previous_turn_player()} has won the game.'
         else:
+            self._logger.debug('Game drawn')
+            self._logger.debug(self.get_game_summary())
             return f'This game is over: it is a draw and neither player has won.'
 
     def _is_valid_player(self, move):
