@@ -28,6 +28,4 @@ Players must enter accurate input as requested.
 TBC
 
 ### Logging
-When launching the app from the command line:<br>
-Appending '-d' enables the display of debug messages in the console.<br>
-Appending '-f' enables the logging of debug messages to a file named 'ttt.log'.
+Logging is configured by the file log.conf. Debug messages are currently sent to the console and logged to the file ttt.log.
