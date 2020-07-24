@@ -100,7 +100,8 @@ class Tictactoe:
             self._player_move_log['X'].append(move.get_cell_chosen())
         else:
             self._player_move_log['O'].append(move.get_cell_chosen())
-
+        self._logger.debug(f'get_turn_counter: {self.get_turn_counter()}')
+        self._logger.debug(f'get_player_move_log: {self.get_player_move_log()}')
         self._turn_counter += 1
 
         if self._is_computer_game and \
