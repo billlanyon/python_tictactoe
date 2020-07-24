@@ -64,6 +64,7 @@ def process_another_move(game):
         try:
             cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
             move = TictactoeMove(game.get_turn_player(), int(cell))
+            logger.debug(f'process_another_move constructed: {move.__str__()}')
             if game.is_valid_move(move):
                 game.process_valid_move(move)
             else:
@@ -77,10 +78,7 @@ def process_another_move(game):
             print(game.inform_game_over())
             return game_over
         else:
-            if game.get_computer_game() and game.is_computer_turn():
-                game.get_computer_move()
-                return get_next_move
-        return get_next_move
+            return get_next_move
 
 
 if __name__ == "__main__":

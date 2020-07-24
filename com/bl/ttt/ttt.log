@@ -1,0 +1,26 @@
+2020-07-24 15:41:57,009 - com.bl.ttt.tictactoe - DEBUG - Game instantiated with self._players: ['X', 'O'] and turn_counter: 1
+2020-07-24 15:41:59,104 - __main__ - DEBUG - process_another_move constructed: X:4
+2020-07-24 15:41:59,105 - com.bl.ttt.tictactoe - DEBUG - process_valid_move: X:4
+2020-07-24 15:41:59,105 - com.bl.ttt.tictactoe - DEBUG - process_valid_move before: 
+    |   |   |   |
+    |   |   |   |
+    |   |   |   |
+2020-07-24 15:41:59,105 - com.bl.ttt.tictactoe - DEBUG - process_valid_move after: 
+    |   |   |   |
+    |   | X |   |
+    |   |   |   |
+2020-07-24 15:41:59,105 - com.bl.ttt.tictactoe - DEBUG - get_computer_move constructed: O:2
+2020-07-24 15:41:59,106 - com.bl.ttt.tictactoe - DEBUG - process_valid_move: O:2
+2020-07-24 15:41:59,106 - com.bl.ttt.tictactoe - DEBUG - process_valid_move before: 
+    |   |   |   |
+    |   | X |   |
+    |   |   |   |
+2020-07-24 15:41:59,106 - com.bl.ttt.tictactoe - DEBUG - process_valid_move after: 
+    |   |   | O |
+    |   | X |   |
+    |   |   |   |
+2020-07-24 15:42:03,856 - __main__ - ERROR - invalid literal for int() with base 10: 's'
+Traceback (most recent call last):
+  File "/Users/billlanyon/Documents/dev/source/TTT/com/bl/ttt/main.py", line 66, in process_another_move
+    move = TictactoeMove(game.get_turn_player(), int(cell))
+ValueError: invalid literal for int() with base 10: 's'

@@ -28,4 +28,4 @@ Players must enter accurate input as requested.
 TBC
 
 ### Logging
-Logging is configured by the file log.conf. Debug messages are currently sent to the console and logged to the file ttt.log.
+Logging is configured by the file log.conf. Debug messages are currently logged to the file ttt.log and error messages and above to the console.
