@@ -27,5 +27,5 @@ Players must enter accurate input as requested.
 ### External dependencies
 TBC
 
-### Usage
-TBC
+### Logging
+Logging is configured by the file log.conf. Debug messages are currently logged to the file ttt.log and error messages and above to the console.

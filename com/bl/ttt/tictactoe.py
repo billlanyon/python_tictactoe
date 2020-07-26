@@ -1,4 +1,5 @@
 from random import randrange
+import logging
 import itertools
 
 
@@ -14,13 +15,14 @@ class Tictactoe:
         self._computer_player = self._player2
         self._turn_counter = 1
         self._player_move_log = {'X': [], 'O': []}
+        self._logger = logging.getLogger(__name__)
+        self._logger.debug(f'Game instantiated with self._players: {self._players} and turn_counter: {self._turn_counter}')
 
     def __str__(self):
         board = f"""
     | {self._cells[0]} | {self._cells[1]} | {self._cells[2]} |
     | {self._cells[3]} | {self._cells[4]} | {self._cells[5]} |
-    | {self._cells[6]} | {self._cells[7]} | {self._cells[8]} |
-    """
+    | {self._cells[6]} | {self._cells[7]} | {self._cells[8]} |"""
         return board
 
     @staticmethod
@@ -28,8 +30,7 @@ class Tictactoe:
         coordinates = """The board coordinates are:
     | 0 | 1 | 2 |
     | 3 | 4 | 5 |
-    | 6 | 7 | 8 |
-    """
+    | 6 | 7 | 8 |"""
         return coordinates
 
     def get_computer_game(self):
@@ -64,10 +65,15 @@ class Tictactoe:
     def get_game_status(self):
         print(self)
 
-    def get_computer_move(self):
+    def get_game_summary(self):
+        empty_cell_indices = [i for i, x in enumerate(self._cells) if x == ' ']
+        return f'Played: {self.get_player_move_log()}. Unplayed: {empty_cell_indices}.'
+
+    def _get_computer_move(self):
         while True:
             computer_cell = randrange(9)
             move = TictactoeMove(self.get_turn_player(), computer_cell)
+            self._logger.debug(f'get_computer_move constructed: {move.__str__()}')
             if self.is_valid_move(move):
                 self.process_valid_move(move)
             else:
@@ -86,18 +92,22 @@ class Tictactoe:
             return False
 
     def process_valid_move(self, move):
+        self._logger.debug(f'process_valid_move: {move}')
+        self._logger.debug(f'process_valid_move before: {self.__str__()}')
         self._cells[move.get_cell_chosen()] = move.get_player_id()
+        self._logger.debug(f'process_valid_move after: {self.__str__()}')
         if move.get_player_id() == 'X':
             self._player_move_log['X'].append(move.get_cell_chosen())
         else:
             self._player_move_log['O'].append(move.get_cell_chosen())
-
+        self._logger.debug(f'get_turn_counter: {self.get_turn_counter()}')
+        self._logger.debug(f'get_player_move_log: {self.get_player_move_log()}')
         self._turn_counter += 1
 
         if self._is_computer_game and \
            self.is_computer_turn() and not \
            self.is_game_over():
-            self.get_computer_move()
+            self._get_computer_move()
 
     def is_computer_turn(self):
         return self.get_turn_player() == 'O'
@@ -109,8 +119,12 @@ class Tictactoe:
 
     def inform_game_over(self):
         if self.has_won(self.get_previous_turn_player()):
+            self._logger.debug('Game won')
+            self._logger.debug(self.get_game_summary())
             return f'Player {self.get_previous_turn_player()} has won the game.'
         else:
+            self._logger.debug('Game drawn')
+            self._logger.debug(self.get_game_summary())
             return f'This game is over: it is a draw and neither player has won.'
 
     def _is_valid_player(self, move):
@@ -151,6 +165,10 @@ class TictactoeMove:
     def __init__(self, player_id, cell_chosen):
         self.player_id = player_id
         self.cell_chosen = cell_chosen
+
+    def __str__(self):
+        player_move = f'{self.player_id}:{self.cell_chosen}'
+        return player_move
 
     def get_player_id(self):
         return self.player_id
