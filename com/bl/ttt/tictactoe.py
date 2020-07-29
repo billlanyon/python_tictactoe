@@ -5,7 +5,8 @@ import itertools
 
 class Tictactoe:
 
-    def __init__(self, is_computer_game=False):
+    def __init__(self, is_computer_game=False, board_size=3):
+        self._board_size = board_size
         self._cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
         self._is_computer_game = is_computer_game
         self._players = ['X', 'O']

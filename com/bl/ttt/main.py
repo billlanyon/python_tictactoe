@@ -8,6 +8,7 @@ game_over = False
 player_tries_again = True
 get_next_move = True
 logger = logging.getLogger(__name__)
+board_dimensions = {'THREE': 3, 'FOUR': 4, 'FIVE': 5, 'SIX': 6, 'SEVEN': 7, 'EIGHT': 8, 'NINE': 9}
 
 
 def set_logging_from_config_file():
@@ -21,14 +22,16 @@ def main():
         if get_game_start() != 'Y':
             print('Thanks for playing and goodbye.')
             return game_over
-
-        if get_game_type() == 'C':
-            game = Tictactoe(is_computer_game=True)
-            print('OK, you will play first as Player X, and the computer will play second as Player O.')
         else:
-            game = Tictactoe()
-            print('Player X will play first.')
-        print(game.initial_coordinates())
+            board_side = board_dimensions[get_board_size()]
+            print(f'OK, you will play on a {board_side}x{board_side} board.')
+            if get_game_type() == 'C':
+                game = Tictactoe(is_computer_game=True, board_size=board_side)
+                print('OK, you will play first as Player X, and the computer will play second as Player O.')
+            else:
+                game = Tictactoe(board_size=board_side)
+                print('Player X will play first.')
+            print(game.initial_coordinates())
         process_player_turns(game)
 
 
@@ -48,6 +51,10 @@ def get_user_input(prompt, valid_input):
 
 def get_game_start():
     return get_user_input("Would you like to start a game of Tic Tac Toe? Please enter 'y' or 'n': ", ['Y', 'N'])
+
+
+def get_board_size():
+    return get_user_input("What board dimensions will you play? Please enter a number from 'three' to 'nine': ", ['THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'])
 
 
 def get_game_type():
