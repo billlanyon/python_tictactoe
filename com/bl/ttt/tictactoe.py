@@ -5,8 +5,9 @@ import itertools
 
 class Tictactoe:
 
-    def __init__(self, is_computer_game=False):
-        self._cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    def __init__(self, is_computer_game=False, board_dims=3):
+        self._board_dims = board_dims
+        self._cells = [' ' for i in range(0, board_dims*board_dims)]
         self._is_computer_game = is_computer_game
         self._players = ['X', 'O']
         self._player1 = self._players[0]
@@ -19,11 +20,17 @@ class Tictactoe:
         self._logger.debug(f'Game instantiated with self._players: {self._players} and turn_counter: {self._turn_counter}')
 
     def __str__(self):
-        board = f"""
-    | {self._cells[0]} | {self._cells[1]} | {self._cells[2]} |
-    | {self._cells[3]} | {self._cells[4]} | {self._cells[5]} |
-    | {self._cells[6]} | {self._cells[7]} | {self._cells[8]} |"""
+        board = '\n'+'\n'.join(self._delimited_rows())
         return board
+
+    def _delimited_rows(self):
+        return ['|'.join(row) for row in self._board_to_rows()]
+
+    def _board_to_rows(self):
+        return [
+            self._cells[x: x + self._board_dims]
+            for x in range(0, len(self._cells), self._board_dims)
+        ]
 
     @staticmethod
     def initial_coordinates():
