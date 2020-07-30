@@ -14,9 +14,10 @@ billlanyon@me.com
 3. Make the game executable by entering 'chmod +x main.py'
 4. Launch the game by entering 'python3 main.py' and following the on screen instructions.
 5. Start a game by entering 'y'.
-6. Select a game against a computer opponent by entering 'c', or 'h' to play against another human.
-7. A human player always plays first: they chose their player by entering X or O, a space, and then a cell from 0 to 8.
-   The following players then just enter a coordinate for each move.
+6. Select a board size, from 3 - 9, by entering the dimension in letters, 'six' for example. The default board size is 3x3.
+7. Select to play a game against a computer opponent by entering 'c', or 'h' to play against another human.
+8. Player X always plays first and a human player always plays first.
+9. Enter a two coordinates separated by a space for each move.
 
 ### Principal classes
 Tictactoe, TictactoeMove
@@ -28,4 +29,4 @@ Players must enter accurate input as requested.
 TBC
 
 ### Logging
-Logging is configured by the file log.conf. Debug messages are currently logged to the file ttt.log and error messages and above to the console.
+Logging is configured by the file log.conf. Debug messages are currently logged to the file ttt.log and critical messages and above to the console.

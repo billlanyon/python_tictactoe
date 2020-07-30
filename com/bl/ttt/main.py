@@ -31,7 +31,7 @@ def main():
             else:
                 game = Tictactoe(board_size=board_side)
                 print('Player X will play first.')
-            print(game.initial_coordinates())
+            print(game.__str__())
         process_player_turns(game)
 
 
@@ -54,7 +54,8 @@ def get_game_start():
 
 
 def get_board_size():
-    return get_user_input("What board dimensions will you play? Please enter a number from 'three' to 'nine': ", ['THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'])
+    return get_user_input("What board dimensions will you play? Please enter a number from 'three' to 'nine': ",
+                          ['THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'])
 
 
 def get_game_type():
@@ -63,14 +64,15 @@ def get_game_type():
 
 def process_player_turns(game):
     while process_another_move(game):
-        game.get_game_status()
+        game.get_board_status()
 
 
 def process_another_move(game):
     while True:
         try:
-            cell = input(f'Player {game.get_turn_player()}: please enter a cell from 0 to 8: ')
-            move = TictactoeMove(game.get_turn_player(), int(cell))
+            cell_x, cell_y = input(f"Player {game.get_turn_player()}:"
+                                   f" please enter x and y coordinates with a space between them: ").split(' ')
+            move = TictactoeMove(game.get_turn_player(), int(cell_x), int(cell_y))
             logger.debug(f'process_another_move constructed: {move.__str__()}')
             if game.is_valid_move(move):
                 game.process_valid_move(move)
@@ -81,7 +83,7 @@ def process_another_move(game):
             logger.error(e, exc_info=True)
 
         if game.is_game_over():
-            game.get_game_status()
+            game.get_board_status()
             print(game.inform_game_over())
             return game_over
         else:
