@@ -118,7 +118,8 @@ class Tictactoe:
         return self.get_turn_player() == 'O'
 
     def is_game_over(self):
-        return self._has_won(self.get_previous_turn_player())
+        if self._is_draw() or self._has_won(self.get_previous_turn_player()):
+            return True
 
     def inform_game_over(self):
         if self._has_won(self.get_previous_turn_player()):
