@@ -23,8 +23,8 @@ class Tictactoe:
         self._turn_counter = 1
         self._player_move_log = {'X': [], 'O': []}
         self._logger = logging.getLogger(__name__)
-        self._logger.debug(f'{self._board_size}x{self._board_size} game instantiated with self._players: \
-                           {self._players} and turn_counter: {self._turn_counter}')
+        self._logger.debug(f'{self._board_size}x{self._board_size} game instantiated with '
+                           f'self._players:{self._players} and turn_counter: {self._turn_counter}')
 
     def __str__(self):
         row_counter = 0
@@ -98,9 +98,12 @@ class Tictactoe:
 
     def process_valid_move(self, move):
         self._logger.debug(f'process_valid_move: {move}')
-        self._logger.debug(f'process_valid_move before: {self.__str__()}')
+        self._logger.debug(f"""process_valid_move before:
+{self.__str__()}""")
+
         self._cells[move.get_cell_chosen_y()][move.get_cell_chosen_x()] = move.get_player_id()
-        self._logger.debug(f'process_valid_move after: {self.__str__()}')
+        self._logger.debug(f"""process_valid_move after: 
+{self.__str__()}""")
         if move.get_player_id() == 'X':
             self._player_move_log['X'].append(move.get_cell_chosen())
         else:
@@ -166,8 +169,7 @@ class TictactoeMove:
         self.cell_chosen_y = int(cell_chosen_y)
 
     def __str__(self):
-        player_move = f'{self.player_id}:{self.cell_chosen_x}:\
-                      {self.cell_chosen_y}'
+        player_move = f'{self.player_id}:{self.cell_chosen_x}:{self.cell_chosen_y}'
         return player_move
 
     def get_player_id(self):

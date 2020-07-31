@@ -78,6 +78,7 @@ def process_another_move(game):
                 game.process_valid_move(move)
             else:
                 print(f'Sorry, that is not a valid move for Player {game.get_turn_player()}, please try again.')
+                logger.debug(f'is_valid_move failed with: {move.__str__()}')
                 continue
         except ValueError as e:
             logger.error(e, exc_info=True)
