@@ -148,7 +148,9 @@ class Tictactoe:
     def _has_won(self, player_id):
         for dimensions in self._coordinates:
             values = [self._cells[x][y] for (x, y) in dimensions]
-            if any(i == j == k == player_id for i, j, k in zip(values, values[1:], values[2:])):
+            if len(set(values)) == 1 and \
+                set(values) == {player_id} and \
+                    ' ' not in values:
                 return True
 
     def _is_draw(self):
