@@ -71,3 +71,30 @@ def test_09__is_any_row_complete_identifies_complete_row_for_symbol_other_than_x
                ' ', ' ', ' ',
                ' ', ' ', ' ']
     assert not g._is_any_row_complete('O')
+
+
+def test_11__row_complete_checker():
+    g = Tictactoe()
+    g._cells = ['X', 'X', 'X',
+                ' ', ' ', ' ',
+                ' ', ' ', ' ']
+    rows = g._board_to_rows(g._cells)
+    assert g._row_complete_checker(rows, 'X')
+
+
+def test_12__row_complete_checker():
+    g = Tictactoe()
+    g._cells = ['X', ' ', ' ',
+                'X', ' ', ' ',
+                'X', ' ', ' ']
+    rows = g._board_to_rows(g._cells)
+    assert not g._row_complete_checker(rows, 'X')
+
+
+def test_13__row_complete_checker():
+    g = Tictactoe()
+    g._cells = ['O', 'O', 'O',
+                ' ', ' ', ' ',
+                ' ', ' ', ' ']
+    rows = g._board_to_rows(g._cells)
+    assert not g._row_complete_checker(rows, 'X')

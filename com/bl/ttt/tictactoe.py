@@ -1,6 +1,7 @@
 from random import randrange
 import logging
 import itertools
+import math
 
 
 class Tictactoe:
@@ -20,16 +21,19 @@ class Tictactoe:
         self._logger.debug(f'Game instantiated with self._players: {self._players} and turn_counter: {self._turn_counter}')
 
     def __str__(self):
-        board = '\n'+'\n'.join(self._delimited_rows())
+        board = '\n'+'\n'.join(Tictactoe._delimited_rows( self._cells ))
         return board
 
-    def _delimited_rows(self):
-        return ['|'.join(row) for row in self._board_to_rows()]
+    @staticmethod
+    def _delimited_rows(cells):
+        return ['|'.join(row) for row in Tictactoe._board_to_rows(cells)]
 
-    def _board_to_rows(self):
+    @staticmethod
+    def _board_to_rows(cells):
+        dims = int(math.sqrt(len(cells)))
         return [
-            self._cells[x: x + self._board_dims]
-            for x in range(0, len(self._cells), self._board_dims)
+            cells[x: x + dims]
+            for x in range(0, len(cells), dims)
         ]
 
     @staticmethod
@@ -144,25 +148,52 @@ class Tictactoe:
         return self._cells[move.get_cell_chosen()] == ' '
 
     def has_won(self, player_id):
-        return self._is_any_row_complete(player_id) or self._is_any_column_complete(player_id) or \
+        return self._is_any_row_complete(player_id) or \
+               self._is_any_column_complete(player_id) or \
                 self._is_any_diagonal_complete(player_id)
 
     def _is_any_row_complete(self, player_id):
-        if self._cells[0] == self._cells[1] == self._cells[2] == player_id or \
-                self._cells[3] == self._cells[4] == self._cells[5] == player_id or \
-                self._cells[6] == self._cells[7] == self._cells[8] == player_id:
-            return True
+        rows = self._board_to_rows(self._cells)
+        return self._row_complete_checker(rows, player_id)
 
     def _is_any_column_complete(self, player_id):
-        if self._cells[0] == self._cells[3] == self._cells[6] == player_id or \
-                self._cells[1] == self._cells[4] == self._cells[7] == player_id or \
-                self._cells[2] == self._cells[5] == self._cells[8] == player_id:
-            return True
+        cols = self._pivot_cells(self._cells)
+        return self._row_complete_checker(cols, player_id)
+
+    @staticmethod
+    def _pivot_cells(cells):
+        as_rows = Tictactoe._board_to_rows(cells)
+        piv = [e for e in zip(*as_rows)]
+        return Tictactoe._flatten_list(piv)
+
+    @staticmethod
+    def _flatten_list(l):
+        return [item for sublist in l for item in sublist]
+
+    def _row_complete_checker(self, rows, player_id):
+        complete_rows = self._get_complete_rows(rows)
+        return len(complete_rows) > 0 and set(player_id) in complete_rows
+
+    def _get_complete_rows(self, rows):
+        return [set(row) for row in rows if (len(set(row)) == 1)]
 
     def _is_any_diagonal_complete(self, player_id):
-        if self._cells[0] == self._cells[4] == self._cells[8] == player_id or \
-                self._cells[6] == self._cells[4] == self._cells[2] == player_id:
-            return True
+        back_slash_diag = self._get_diagonal(self._cells)
+        is_backslash = set(player_id) == set(back_slash_diag)
+        trans = self._horiz_flip_cells(self._cells)
+        fwd_slash_diag = self._get_diagonal(trans)
+        is_fwd_slash = set(player_id) == set(fwd_slash_diag)
+        return is_backslash or is_fwd_slash
+
+    @staticmethod
+    def _horiz_flip_cells(cells):
+        as_rows = Tictactoe._board_to_rows(cells)
+        transposed = as_rows[::-1]
+        return Tictactoe._flatten_list(transposed)
+
+    def _get_diagonal(self, cells):
+        dims = self._board_dims
+        return [cells[a*dims+a] for a in range(0, dims)]
 
     def is_draw(self):
         return ' ' not in self._cells
