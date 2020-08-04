@@ -142,7 +142,7 @@ class Tictactoe:
         return move.get_player_id() == 'X' or move.get_player_id() == 'O'
 
     def _is_cell_in_range(self, move):
-        return 8 >= move.get_cell_chosen() >= 0
+        return self._board_dims*self._board_dims >= move.get_cell_chosen() >= 0
 
     def _is_cell_empty(self, move):
         return self._cells[move.get_cell_chosen()] == ' '
@@ -157,7 +157,8 @@ class Tictactoe:
         return self._row_complete_checker(rows, player_id)
 
     def _is_any_column_complete(self, player_id):
-        cols = self._pivot_cells(self._cells)
+        piv = self._pivot_cells(self._cells)
+        cols = self._board_to_rows(piv)
         return self._row_complete_checker(cols, player_id)
 
     @staticmethod
