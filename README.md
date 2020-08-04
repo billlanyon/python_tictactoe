@@ -17,7 +17,7 @@ billlanyon@me.com
 6. Select a board size, from 3 - 9, by entering the dimension in letters, 'six' for example. The default board size is 3x3.
 7. Select to play a game against a computer opponent by entering 'c', or 'h' to play against another human.
 8. Player X always plays first and a human player always plays first.
-9. Enter a two coordinates separated by a space for each move.
+9. Enter a two coordinates separated by a space for each move eg. '2 1'.
 
 ### Principal classes
 Tictactoe, TictactoeMove

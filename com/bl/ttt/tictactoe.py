@@ -50,12 +50,6 @@ class Tictactoe:
         else:
             return self._player1
 
-    def get_previous_turn_player(self):
-        if self.get_turn_player() == self._player1:
-            return self._player2
-        else:
-            return self._player1
-
     def get_player_move_log(self, player_id='both'):
         if player_id == 'both':
             x_move_log = list(self._player_move_log.get('X'))
@@ -108,7 +102,8 @@ class Tictactoe:
             self._player_move_log['X'].append(move.get_cell_chosen())
         else:
             self._player_move_log['O'].append(move.get_cell_chosen())
-        self._turn_counter += 1
+        if not self.is_game_over():
+            self._turn_counter += 1
         self._logger.debug(f'get_turn_counter: {self.get_turn_counter()}')
         self._logger.debug(f'get_player_move_log: {self.get_player_move_log()}')
 
@@ -121,15 +116,15 @@ class Tictactoe:
         return self.get_turn_player() == 'O'
 
     def is_game_over(self):
-        if self._is_draw() or self._has_won(self.get_previous_turn_player()):
+        if self._is_draw() or self._has_won(self.get_turn_player()):
             return True
 
     def inform_game_over(self):
-        if self._has_won(self.get_previous_turn_player()):
-            self._logger.debug('Game won')
+        if self._has_won(self.get_turn_player()):
+            self._logger.debug(f'Game won by {self.get_turn_player()}')
             self._logger.debug(self.get_game_summary())
-            return f'Player {self.get_previous_turn_player()} has won the game.'
-        else:
+            return f'Player {self.get_turn_player()} has won the game.'
+        elif self._is_draw():
             self._logger.debug('Game drawn')
             self._logger.debug(self.get_game_summary())
             return f'This game is over: it is a draw and neither player has won.'
@@ -158,9 +153,7 @@ class Tictactoe:
         for sublist in self._cells:
             for item in sublist:
                 flat_cells_list.append(item)
-        if self._has_won('X') is None and \
-                self._has_won('O') is None and \
-                ' ' not in flat_cells_list:
+        if not self._has_won(self.get_turn_player()) and ' ' not in flat_cells_list:
             return True
 
 
