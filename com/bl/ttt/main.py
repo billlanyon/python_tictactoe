@@ -23,7 +23,7 @@ def main():
             print('Thanks for playing and goodbye.')
             return game_over
         else:
-            board_side = board_dimensions[get_board_size()]
+            board_side = get_board_size()
             print(f'OK, you will play on a {board_side}x{board_side} board.')
             if get_game_type() == 'C':
                 game = Tictactoe(is_computer_game=True, board_size=board_side)
@@ -54,8 +54,11 @@ def get_game_start():
 
 
 def get_board_size():
-    return get_user_input("What board dimensions will you play? Please enter a number from 'three' to 'nine': ",
-                          ['THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'])
+    try:
+        return int(get_user_input("What board dimensions will you play? Please enter a number from 3 to 9: ",
+                       ['3', '4', '5', '6', '7', '8', '9']))
+    except ValueError as e:
+        logger.error(e, exc_info=True)
 
 
 def get_game_type():
