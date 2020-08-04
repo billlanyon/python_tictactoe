@@ -62,6 +62,17 @@ def get_game_type():
     return get_user_input("What kind of game will you play: enter 'h' for human or 'c' for computer: ", ['H', 'C'])
 
 
+def inform_game_over(game):
+    if game._has_won(game.get_turn_player()):
+        logger.debug(f'Game won by {game.get_turn_player()}')
+        logger.debug(game.get_game_summary())
+        return f'Player {game.get_turn_player()} has won the game.'
+    elif game._is_draw():
+        logger.debug('Game drawn')
+        logger.debug(game.get_game_summary())
+        return f'This game is over: it is a draw and neither player has won.'
+
+
 def process_player_turns(game):
     while process_another_move(game):
         game.get_board_status()
@@ -85,7 +96,7 @@ def process_another_move(game):
 
         if game.is_game_over():
             game.get_board_status()
-            print(game.inform_game_over())
+            print(inform_game_over(game))
             return game_over
         else:
             return get_next_move

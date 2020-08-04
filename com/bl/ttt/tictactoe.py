@@ -119,16 +119,6 @@ class Tictactoe:
         if self._is_draw() or self._has_won(self.get_turn_player()):
             return True
 
-    def inform_game_over(self):
-        if self._has_won(self.get_turn_player()):
-            self._logger.debug(f'Game won by {self.get_turn_player()}')
-            self._logger.debug(self.get_game_summary())
-            return f'Player {self.get_turn_player()} has won the game.'
-        elif self._is_draw():
-            self._logger.debug('Game drawn')
-            self._logger.debug(self.get_game_summary())
-            return f'This game is over: it is a draw and neither player has won.'
-
     def _is_valid_player(self, move):
         return move.get_player_id() == 'X' or move.get_player_id() == 'O'
 
