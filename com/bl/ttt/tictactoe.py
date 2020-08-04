@@ -104,12 +104,10 @@ class Tictactoe:
 
     def process_valid_move(self, move):
         self._logger.debug(f'process_valid_move: {move}')
-        self._logger.debug(f"""process_valid_move before:
-{self.__str__()}""")
+        self._logger.debug(f"""process_valid_move before: \n{self.__str__()}""")
 
         self._cells[move.get_cell_chosen_y()][move.get_cell_chosen_x()] = move.get_player_id()
-        self._logger.debug(f"""process_valid_move after: 
-{self.__str__()}""")
+        self._logger.debug(f"""process_valid_move after: \n{self.__str__()}""")
         if move.get_player_id() == 'X':
             self._player_move_log['X'].append(move.get_cell_chosen())
         else:
