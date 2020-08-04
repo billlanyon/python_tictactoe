@@ -9,10 +9,10 @@ class Tictactoe:
         self._board_size = board_size
         self._cells = [[' '] * self._board_size for _ in range(self._board_size)]
         self._coordinates = (
-                [[(x, y) for y in range(self._board_size)] for x in range(self._board_size)] +
-                [[(x, y) for x in range(self._board_size)] for y in range(self._board_size)] +
-                [[(d, d) for d in range(self._board_size)]] +
-                [[(self._board_size - 1 - d, d) for d in range(self._board_size)]]
+                self._initialise_coordinates_horizontal() +
+                self._initialise_coordinates_vertical() +
+                self._initialise_coordinates_back_slash_diagonal() +
+                self._initialise_coordinates_forward_slash_diagonal()
         )
         self._is_computer_game = is_computer_game
         self._players = ['X', 'O']
@@ -25,6 +25,18 @@ class Tictactoe:
         self._logger = logging.getLogger(__name__)
         self._logger.debug(f'{self._board_size}x{self._board_size} game instantiated with '
                            f'self._players:{self._players} and turn_counter: {self._turn_counter}')
+
+    def _initialise_coordinates_horizontal(self):
+        return [[(x, y) for y in range(self._board_size)] for x in range(self._board_size)]
+
+    def _initialise_coordinates_vertical(self):
+        return [[(x, y) for x in range(self._board_size)] for y in range(self._board_size)]
+
+    def _initialise_coordinates_back_slash_diagonal(self):
+        return [[(d, d) for d in range(self._board_size)]]
+
+    def _initialise_coordinates_forward_slash_diagonal(self):
+        return [[(self._board_size - 1 - d, d) for d in range(self._board_size)]]
 
     def __str__(self):
         row_counter = 0
