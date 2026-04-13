@@ -1,2 +1,2 @@
 # These requirements are for running tests
-pytest==5.4.3
+pytest==9.0.3
